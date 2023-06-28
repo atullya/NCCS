@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
+
 
 #define MAX 5
 
@@ -23,10 +23,11 @@ int main()
     Pqueue.rear = -1;
 
     int option;
+     printf("Enter the Min Priority queue operation\n 1. Enqueue\n 2. Dequeue\n 3. Display Elements\n 4. Exit\n");
     do
     {
-        system("cls");
-        printf("Enter the queue operation\n 1. Enqueue\n 2. Dequeue\n 3. Display Elements\n 4. Exit\n");
+     
+       
         printf("Your Choice: ");
         scanf("%d", &option);
 
@@ -34,15 +35,15 @@ int main()
         {
         case 1:
             enqueue(&Pqueue);
-            getch();
+        
             break;
         case 2:
             dequeue(&Pqueue);
-            getch();
+         
             break;
         case 3:
             display(Pqueue);
-            getch();
+           
             break;
         case 4:
             printf("Exiting...\n");
