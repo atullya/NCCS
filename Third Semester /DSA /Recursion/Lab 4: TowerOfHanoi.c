@@ -10,7 +10,7 @@ int TOH(int n, char A, char B, char C){
 }
 
 int main() {
-    system ("clear");
+   
    int n;
    printf("Enter the number of disk:");
    scanf("%d",&n);
