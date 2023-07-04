@@ -41,7 +41,7 @@ int main() {
 
     selectionSort(a, n);
 
-    printf("Sorted array: ");
+    printf("Sorted array after selection sort: ");
     display(a, n);
 
     return 0;
