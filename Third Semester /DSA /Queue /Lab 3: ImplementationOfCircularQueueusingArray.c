@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define MAX_SIZE 5
+#define MAX_SIZE 4
 
 struct queue
 {
@@ -15,6 +15,7 @@ void display(queueType *);
 
 int main()
 {
+   
     queueType q;
     q.front = MAX_SIZE - 1;
     q.rear = MAX_SIZE - 1;
