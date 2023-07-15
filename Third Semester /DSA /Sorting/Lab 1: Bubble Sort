@@ -31,7 +31,7 @@ int main() {
     printf("The Array Before Sorting is:\n");
     printArray(a,n);
     BubbleSort(a,n);
-    printf("\nThe Array After Sorting is:\n");
+    printf("\nThe Array After Bubble Sorting is:\n");
     printArray(a,n);
 
     return 0;
