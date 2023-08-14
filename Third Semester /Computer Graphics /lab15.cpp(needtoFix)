@@ -1,0 +1,83 @@
+#include <GL/glut.h>
+#include <cmath>
+
+// Rectangle properties
+float width = 200.0f;
+float height = 50.0f;
+float centerX = 200.0f;
+float centerY = 200.0f;
+
+// Rotation angle in degrees
+float rotationAngle = 30.0f;
+
+// Scale factors
+float scaleX = 2.0f;
+float scaleY = 2.0f;
+
+// Offset for the translation
+float xOffset = 20.0f; // Adjust this value to move the rectangle inside
+
+void drawRectangle() {
+    glPushMatrix();
+
+    // Translate to the center of the rectangle with an offset
+    glTranslatef(centerX + xOffset, centerY, 0.0f);
+
+    // Rotate the rectangle
+    glRotatef(rotationAngle, 0.0f, 0.0f, 1.0f);
+
+    // Scale the rectangle
+    glScalef(scaleX, scaleY, 1.0f);
+
+    // Draw the rectangle
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(-width / 2, -height / 2);
+    glVertex2f(width / 2, -height / 2);
+    glVertex2f(width / 2, height / 2);
+    glVertex2f(-width / 2, height / 2);
+    glEnd();
+
+    glPopMatrix();
+}
+
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Draw original rectangle outline in blue
+    glColor3f(0.0f, 0.0f, 1.0f);
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(centerX - width / 2, centerY - height / 2);
+    glVertex2f(centerX + width / 2, centerY - height / 2);
+    glVertex2f(centerX + width / 2, centerY + height / 2);
+    glVertex2f(centerX - width / 2, centerY + height / 2);
+    glEnd();
+
+    // Draw rotated and scaled rectangle in red
+    drawRectangle();
+
+    glutSwapBuffers();
+}
+
+void reshape(int w, int h) {
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0, w, 0, h);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize(800, 800);
+    glutCreateWindow("OpenGL Rectangle Rotation and Scaling");
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape);
+
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Set background color to white
+
+    glutMainLoop();
+    return 0;
+}
