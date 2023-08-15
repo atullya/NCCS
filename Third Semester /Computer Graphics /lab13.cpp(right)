@@ -1,62 +1,73 @@
 #include <GL/glut.h>
 #include <cmath>
 
-// Rectangle properties
-float width = 200.0f;
-float height = 50.0f;
-float centerX = 100.0f;
-float centerY = 100.0f;
+float x, y;
+float width, height;
+int win_width = 800;
+int win_height = 600;
 
-// Rotation angle in degrees
-float rotationAngle = 30.0f;
-
-void drawRectangle(float r, float g, float b, float centerX, float centerY) {
-    glColor3f(r, g, b);
-    glBegin(GL_LINE_LOOP); // Change to GL_LINE_LOOP
-    glVertex2f(centerX - width / 2, centerY - height / 2);
-    glVertex2f(centerX + width / 2, centerY - height / 2);
-    glVertex2f(centerX + width / 2, centerY + height / 2);
-    glVertex2f(centerX - width / 2, centerY + height / 2);
+void drawRectangle(float x, float y, float width, float height) {
+    glColor3f(0.0f, 0.0f, 1.0f);
+    glLineWidth(2.0);
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(x, y);
+    glVertex2f(x + width, y);
+    glVertex2f(x + width, y + height);
+    glVertex2f(x, y + height);
     glEnd();
 }
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Draw original rectangle outline in blue
-    drawRectangle(0.0f, 0.0f, 1.0f, centerX, centerY);
+    // Draw the original rectangle
+    drawRectangle(x, y, width, height);
 
-    // Draw rotated rectangle in red
+    // Calculate the center of rotation
+    float centerX = x + width / 2;
+    float centerY = y + height / 2;
+
+    // Apply rotation transformation
     glPushMatrix();
-    glTranslatef(centerX, centerY, 0.0f);
-    glRotatef(rotationAngle, 0.0f, 0.0f, 1.0f);
-    glTranslatef(-centerX, -centerY, 0.0f);
-    drawRectangle(1.0f, 0.0f, 0.0f, centerX, centerY);
+
+    glRotatef(30.0, 0.0, 0.0, 1.0);
+
+
+    // Draw the rotated rectangle
+    drawRectangle(x, y, width, height);
+
     glPopMatrix();
 
-    glutSwapBuffers();
+    glFlush();
 }
 
 void reshape(int w, int h) {
-    glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+    glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0.0, (GLdouble)w, 0.0, (GLdouble)h);
+    gluOrtho2D(-100, win_width, -100, win_height);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char *argv[]) {
+    x = 100;
+    y = 100;
+    width = 200;
+    height = 50;
+
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-    glutInitWindowSize(800, 600);
-    glutCreateWindow("OpenGL Rectangle Rotation");
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(win_width, win_height);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Rotate Rectangle Using OpenGL Rotate");
+
+    glClearColor(1.0, 1.0, 1.0, 1.0);
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
 
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Set background color to white
-
     glutMainLoop();
+
     return 0;
 }
 
