@@ -1,101 +1,75 @@
-#include <GL/glut.h>
+/*#include <GL/glut.h>
 #include <cmath>
+#include <iostream>
+using namespace std;
 
-// Rectangle properties
-float width = 200.0f;
-float height = 50.0f;
-float centerX = 100.0f;
-float centerY = 100.0f;
+float x, y;
+float width, height;
+int win_width = 800;
+int win_height = 600;
 
-// Rotation angle in degrees
-float rotationAngle = 30.0f;
+void rotate()
+{
+    float theta = (30 * 3.14159265) / 180.0;
+    float rotationMatrix[3][3] = {cos(theta), -sin(theta), 0, sin(theta), cos(theta), 0, 0, 0, 1};
+    float originalVertex[3][4] = {{x, x + width, x + width, x}, {y, y, y + height, y + height}, {1, 1, 1, 1}};
 
-// Function to rotate a point (x, y) about the origin (0, 0)
-void rotatePoint(float& x, float& y, float centerX, float centerY, float angle) {
-    float radianAngle = angle * (3.14159265358979323846f / 180.0f);
-    float s = sin(radianAngle);
-    float c = cos(radianAngle);
+    float finalVertex[3][4] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-    // Translate the point to the origin
-    x -= centerX;
-    y -= centerY;
-
-    // Rotate the point
-    float newX = x * c - y * s;
-    float newY = x * s + y * c;
-
-    // Translate the point back
-    x = newX + centerX;
-    y = newY + centerY;
-}
-
-void drawRectangle(float r, float g, float b, float centerX, float centerY) {
-    glColor3f(r, g, b);
-    glBegin(GL_LINE_LOOP);
-    float halfWidth = width / 2;
-    float halfHeight = height / 2;
-
-    // Calculate and store the rotated vertices
-    float x1 = centerX - halfWidth;
-    float y1 = centerY - halfHeight;
-    float x2 = centerX + halfWidth;
-    float y2 = centerY - halfHeight;
-    float x3 = centerX + halfWidth;
-    float y3 = centerY + halfHeight;
-    float x4 = centerX - halfWidth;
-    float y4 = centerY + halfHeight;
-    rotatePoint(x1, y1, centerX, centerY, rotationAngle);
-    rotatePoint(x2, y2, centerX, centerY, rotationAngle);
-    rotatePoint(x3, y3, centerX, centerY, rotationAngle);
-    rotatePoint(x4, y4, centerX, centerY, rotationAngle);
-
-    // Draw the rotated rectangle
-    glVertex2f(x1, y1);
-    glVertex2f(x2, y2);
-    glVertex2f(x3, y3);
-    glVertex2f(x4, y4);
-    glEnd();
-}
-
-void display() {
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    // Draw rotated rectangle in red
-    drawRectangle(1.0f, 0.0f, 0.0f, centerX, centerY);
-
-    // Draw original rectangle outline in blue
     glColor3f(0.0f, 0.0f, 1.0f);
+    glLineWidth(2.0);
     glBegin(GL_LINE_LOOP);
-    float halfWidth = width / 2;
-    float halfHeight = height / 2;
-    glVertex2f(centerX - halfWidth, centerY - halfHeight);
-    glVertex2f(centerX + halfWidth, centerY - halfHeight);
-    glVertex2f(centerX + halfWidth, centerY + halfHeight);
-    glVertex2f(centerX - halfWidth, centerY + halfHeight);
+    for (int i = 0; i < 4; i++)
+    {
+        glVertex2f(originalVertex[0][i], originalVertex[1][i]);
+    }
     glEnd();
+    glFlush();
 
-    glutSwapBuffers();
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                finalVertex[i][j] += rotationMatrix[i][k] * originalVertex[k][j];
+            }
+        }
+    }
+    glColor3f(1.0, 0.0, 0.0);
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < 4; i++)
+    {
+        glVertex2f(finalVertex[0][i], finalVertex[1][i]);
+    }
+
+    glEnd();
+    glFlush();
 }
 
-void reshape(int w, int h) {
-    glViewport(0, 0, (GLsizei)w, (GLsizei)h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(0.0, (GLdouble)w, 0.0, (GLdouble)h);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+    rotate();
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char *argv[])
+{
+    x = 100;
+    y = 100;
+    width = 200;
+    height = 50;
+
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-    glutInitWindowSize(800, 600);
-    glutCreateWindow("OpenGL Rectangle Rotation");
+    glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
+    glutInitWindowSize(win_width, win_height);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Rotate Rectangle Without Using Function");
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    gluOrtho2D(-100, win_width, -100, win_height);
     glutDisplayFunc(display);
-    glutReshapeFunc(reshape);
-
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Set background color to white
-
     glutMainLoop();
+
     return 0;
 }
+*/
