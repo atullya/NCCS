@@ -1,4 +1,4 @@
-#include <GL/glut.h>
+/*#include <GL/glut.h>
 #include <cmath>
 
 float x, y;
@@ -30,7 +30,7 @@ void display() {
     // Apply rotation and scaling transformations
     glPushMatrix();
 
-    glRotatef(30.0, 0.0, 0.0, 1.0);
+
     glScalef(2.0, 2.0, 1.0); // Scale by (2, 2)
 
 
@@ -71,3 +71,4 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+*/
