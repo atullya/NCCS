@@ -1,0 +1,70 @@
+/*#include <GL/glut.h>
+
+int win_width = 800;
+int win_height = 600;
+
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Define the clipping region using glOrtho
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-0.5, 0.5, -0.5, 0.5, -1.0, 1.0);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    // Draw the original shape (rectangle)
+    glColor3f(0.0f, 0.0f, 1.0f);
+    glBegin(GL_POLYGON);
+    glVertex2f(-0.8f, -0.8f);
+    glVertex2f(0.8f, -0.8f);
+    glVertex2f(0.8f, 0.8f);
+    glVertex2f(-0.8f, 0.8f);
+    glEnd();
+
+    // Set the clipping region using glClipPlane
+    double planeEq[4] = {1.0, -1.0, 0.0, 0.0};
+    glClipPlane(GL_CLIP_PLANE0, planeEq);
+    glEnable(GL_CLIP_PLANE0);
+
+    // Draw the clipped shape (triangle)
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glBegin(GL_POLYGON);
+    glVertex2f(-0.2f, -0.2f);
+    glVertex2f(0.2f, -0.2f);
+    glVertex2f(0.2f, 0.2f);
+    glEnd();
+
+    glDisable(GL_CLIP_PLANE0);
+
+    glutSwapBuffers();
+}
+
+void reshape(int w, int h) {
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+int main(int argc, char *argv[]) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize(win_width, win_height);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Clipping using Orthogonal Projection");
+
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape);
+
+    glutMainLoop();
+
+    return 0;
+}
+*/
