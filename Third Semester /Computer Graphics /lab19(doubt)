@@ -88,3 +88,63 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+/*
+#include <GL/glut.h> // Include the GLUT library
+#include <iostream>
+
+// Window dimensions
+int windowWidth = 800;
+int windowHeight = 600;
+
+void drawScene() {
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glMatrixMode(GL_PROJECTION); // Load the projection matrix
+    glLoadIdentity(); // Reset the projection matrix
+
+    // Define orthogonal projection
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+
+    glMatrixMode(GL_MODELVIEW); // Load the modelview matrix
+    glLoadIdentity(); // Reset the modelview matrix
+
+    // Set the background color to white
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    // Clear the color buffer
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Set the square color to black
+    glColor3f(0.0, 0.0, 0.0);
+
+    // Draw a square
+    glBegin(GL_QUADS);
+    glVertex2f(-0.5, -0.5);
+    glVertex2f(0.5, -0.5);
+    glVertex2f(0.5, 0.5);
+    glVertex2f(-0.5, 0.5);
+    glEnd();
+
+    glutSwapBuffers(); // Swap the front and back buffers
+}
+
+void reshape(int width, int height) {
+    glViewport(0, 0, width, height);
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv); // Initialize GLUT
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); // Set display mode
+
+    glutInitWindowSize(windowWidth, windowHeight); // Set window size
+    glutCreateWindow("Orthogonal Projection Example"); // Create the window
+
+    glutDisplayFunc(drawScene); // Set the display callback function
+    glutReshapeFunc(reshape); // Set the reshape callback function
+
+    glClearColor(1.0, 1.0, 1.0, 1.0); // Set clear color to white
+
+    glutMainLoop(); // Enter the GLUT main loop
+
+    return 0;
+}
+*/
