@@ -17,21 +17,11 @@ void drawRectangle(float x, float y, float width, float height) {
     glEnd();
 }
 
-void rotatePoint(float angle, float& x, float& y, float centerX, float centerY) {
-    float s = sin(angle * M_PI / 180.0);
-    float c = cos(angle * M_PI / 180.0);
-
-    // Translate point back to origin
-    x -= centerX;
-    y -= centerY;
-
-    // Rotate point
-    float newX = x * c - y * s;
-    float newY = x * s + y * c;
-
-    // Translate point back
-    x = newX + centerX;
-    y = newY + centerY;
+void matrixMultiply(float matrix[3][3], float& x, float& y) {
+    float tempX = matrix[0][0] * x + matrix[0][1] * y + matrix[0][2];
+    float tempY = matrix[1][0] * x + matrix[1][1] * y + matrix[1][2];
+    x = tempX;
+    y = tempY;
 }
 
 void display() {
@@ -44,7 +34,18 @@ void display() {
     float centerX = 150.0f;
     float centerY = 125.0f;
 
-    // Rotate the vertices of the rectangle
+    // Create rotation matrix
+    float angle = 30.0 * M_PI / 180.0;
+    float cosA = cos(angle);
+    float sinA = sin(angle);
+
+    float rotationMatrix[3][3] = {
+        {cosA, -sinA, centerX * (1 - cosA) + centerY * sinA},
+        {sinA, cosA, centerY * (1 - cosA) - centerX * sinA},
+        {0, 0, 1}
+    };
+
+    // Rotate the vertices of the rectangle using matrix multiplication
     float x1 = x;
     float y1 = y;
     float x2 = x + width;
@@ -54,10 +55,10 @@ void display() {
     float x4 = x;
     float y4 = y + height;
 
-    rotatePoint(30.0, x1, y1, centerX, centerY);
-    rotatePoint(30.0, x2, y2, centerX, centerY);
-    rotatePoint(30.0, x3, y3, centerX, centerY);
-    rotatePoint(30.0, x4, y4, centerX, centerY);
+    matrixMultiply(rotationMatrix, x1, y1);
+    matrixMultiply(rotationMatrix, x2, y2);
+    matrixMultiply(rotationMatrix, x3, y3);
+    matrixMultiply(rotationMatrix, x4, y4);
 
     // Draw the rotated rectangle
     glBegin(GL_LINE_LOOP);
@@ -89,7 +90,7 @@ int main(int argc, char *argv[]) {
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(win_width, win_height);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Rotate Rectangle About Fixed Point Without Using OpenGL Transformations");
+    glutCreateWindow("Rotate Rectangle Using Matrix Multiplication");
 
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glutDisplayFunc(display);
