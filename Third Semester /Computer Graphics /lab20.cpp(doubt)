@@ -9,14 +9,14 @@ void display() {
     // Set up the clipping region using glOrtho
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-0.5, 0.5, -0.5, 0.5, -1.0, 1.0);
+    glOrtho(-0.4, 0.4, -0.4, 0.4, -1.0, 1.0);
 
     // Draw the original non-filled triangle
     glColor3f(0.0f, 0.0f, 1.0f);
     glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.4f, -0.4f);
-    glVertex2f(0.5f, -0.2f);
-    glVertex2f(0.2f, 0.4f);
+    glVertex2f(-0.5f, -0.4f);
+    glVertex2f(0.7f, -0.2f);
+    glVertex2f(0.2f, 0.7f);
     glEnd();
 
     glutSwapBuffers();
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(win_width, win_height);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Clipping Using Orthogonal Projection");
+    glutCreateWindow("Clipping Using Orthogonal Projection-Atullya");
 
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -47,3 +47,4 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+
