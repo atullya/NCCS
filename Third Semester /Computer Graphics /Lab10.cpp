@@ -6,21 +6,27 @@ using namespace std;
 
 float xi, yi, xf, yf;
 
-void bresenham() {
+void bresenham()
+{
     float x, y, dx, dy, p, xend;
     dx = xf - xi;
     dy = yf - yi;
-    if (dx < 0) {
+    if (dx < 0)
+    {
         dx = -dx;
     }
-    if (dy < 0) {
+    if (dy < 0)
+    {
         dy = -dy;
     }
-    if (xi > xf) {
+    if (xi > xf)
+    {
         x = xf;
         y = yf;
         xend = xi;
-    } else {
+    }
+    else
+    {
         x = xi;
         y = yi;
         xend = xf;
@@ -29,24 +35,37 @@ void bresenham() {
     glColor3f(0.0, 0.0, 0.0);
     glBegin(GL_POINTS);
     glVertex2f(x, y);
-    if (dx < dy) {
+    if (dx < dy)
+    {
         p = 2 * dx - dy;
-        while (x <= xend) {
-            if (p < 0) {
+        while (x <= xend)
+        {
+
+            if (p < 0)
+            {
                 p += 2 * dx;
-            } else {
+            }
+            else
+            {
                 p += 2 * (dx - dy);
                 y += (yf > yi) ? 1 : -1;
             }
             x += 1;
             glVertex2f(x, y);
         }
-    } else {
+    }
+    else
+    {
         p = 2 * dy - dx;
-        while (x <= xend) {
-            if (p < 0) {
+        while (x <= xend)
+        {
+
+            if (p < 0)
+            {
                 p += 2 * dy;
-            } else {
+            }
+            else
+            {
                 p += 2 * (dy - dx);
                 x += (xf > xi) ? 1 : -1;
             }
@@ -58,13 +77,17 @@ void bresenham() {
     glFlush();
 }
 
-void dda() {
+void dda()
+{
     int steps;
     int dx = xf - xi;
     int dy = yf - yi;
-    if (abs(dx) >= abs(dy)) {
+    if (abs(dx) >= abs(dy))
+    {
         steps = abs(dx);
-    } else {
+    }
+    else
+    {
         steps = abs(dy);
     }
     float xIncrement = (float)dx / (float)steps;
@@ -75,7 +98,8 @@ void dda() {
     glColor3f(0.0, 0.0, 0.0);
     glBegin(GL_POINTS);
     glVertex2f(round(x), round(y));
-    for (int i = 0; i <= steps; i++) {
+    for (int i = 0; i <= steps; i++)
+    {
         x += xIncrement;
         y += yIncrement;
         glVertex2f(round(x), round(y));
@@ -84,35 +108,57 @@ void dda() {
     glFlush();
 }
 
-void direct() {
+void direct()
+{
     float x, y, dx, dy, m, c, xend;
+    int step,inc;
     dx = xf - xi;
     dy = yf - yi;
     m = dy / dx;
     c = yi - m * xi;
-    if (xi > xf) {
-        x = xf;
-        y = yf;
-        xend = xi;
-    } else {
-        x = xi;
-        y = yi;
-        xend = xf;
-    }
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.0, 0.0, 0.0);
     glBegin(GL_POINTS);
+
+    x=xi;
+    y=yi;
+   glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(0.0, 0.0, 0.0);
     glVertex2f(round(x), round(y));
-    while (x <= xend) {
-        x += 1;
+    int i=0;
+    if(abs(dx)>abs(dy)){
+        step=dx;
+        inc=dx/step;
+
+
+
+
+    while (i <= step)
+    {
+
+        x =x+inc;
         y = m * x + c;
         glVertex2f(round(x), round(y));
+        i++;
     }
+    }
+    else{
+        step=dy;
+        inc=dy/step;
+        while (i <= step)
+        {
+
+        y =y+inc;
+        x = (y-c)/m;
+        glVertex2f(round(x), round(y));
+        i++;
+        }
+    }
+
     glEnd();
     glFlush();
 }
 
-void plotPixel() {
+void plotPixel()
+{
     clock_t dda_start, dda_end, bresenham_start, bresenham_end, direct_start, direct_end;
 
     dda_start = clock();
@@ -126,12 +172,13 @@ void plotPixel() {
     direct_end = clock();
 
     cout << endl;
-    cout << "The time taken by DDA is " << (float)(dda_end - dda_start) / CLOCKS_PER_SEC << " seconds" << endl;
-    cout << "The time taken by Bresenham is " << (float)(bresenham_end - bresenham_start) / CLOCKS_PER_SEC << " seconds" << endl;
-    cout << "The time taken by Direct is " << (float)(direct_end - direct_start) / CLOCKS_PER_SEC << " seconds" << endl;
+    cout << "The time taken by DDA is " << (dda_end - dda_start)  << " seconds" << endl;
+    cout << "The time taken by Bresenham is " << (bresenham_end - bresenham_start) << " seconds" << endl;
+    cout << "The time taken by Direct is " << (direct_end - direct_start)  << " seconds" << endl;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     cout << "Enter the initial points: ";
     cin >> xi >> yi;
     cout << "Enter the final points: ";
@@ -141,7 +188,7 @@ int main(int argc, char *argv[]) {
     glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
     glutInitWindowSize(800, 600);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Calculating Time - Atullya Maharjan");
+    glutCreateWindow("Bresenham Algorithm");
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
