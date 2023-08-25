@@ -1,117 +1,88 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-#define MAX 5
-
-struct queue
+struct node
 {
-    int data[MAX];
-    int front;
-    int rear;
+    int data;
+    struct node *next;
 };
-typedef struct queue queue;
+typedef struct node Node;
 
-void enqueue(queue *);
-void dequeue(queue *);
-void display(queue);
+Node *top = NULL;  // Pointer to the top of the stack
+
+void push();
+void pop();
+void display();
 
 int main()
 {
-    system("clear");
-    struct queue Pqueue;
-    Pqueue.front = 0;
-    Pqueue.rear = -1;
-
     int option;
-     printf("Enter the Min Priority queue operation\n 1. Enqueue\n 2. Dequeue\n 3. Display Elements\n 4. Exit\n");
+    printf("\n 1. Push\n 2. Pop\n 3. Display\n 4. Exit\n");
+
     do
     {
-     
-       
-        printf("Your Choice: ");
+        printf("\nEnter your option: ");
         scanf("%d", &option);
-
         switch (option)
         {
         case 1:
-            enqueue(&Pqueue);
-        
+            push();
             break;
         case 2:
-            dequeue(&Pqueue);
-         
+            pop();
             break;
         case 3:
-            display(Pqueue);
-           
+            display();
             break;
         case 4:
-            printf("Exiting...\n");
             break;
         default:
-            printf("Invalid Choice\n");
+            printf("Invalid option\n");
             break;
         }
     } while (option != 4);
     return 0;
 }
 
-void enqueue(queue *Pqueue)
+void push()
 {
-    int element;
-    if (Pqueue->rear == MAX - 1)
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    printf("Enter the data: ");
+    scanf("%d", &newNode->data);
+    newNode->next = top;
+    top = newNode;
+    printf("%d is pushed onto the stack\n", newNode->data);
+}
+
+void pop()
+{
+    if (top == NULL)
     {
-        printf("Queue Overflow\n");
+        printf("Stack underflow\n");
     }
     else
     {
-        printf("Enter the value to be inserted: ");
-        scanf("%d", &element);
-        Pqueue->data[++Pqueue->rear] = element;
-        printf("Element %d inserted successfully\n", element);
+        Node *temp = top;
+        top = top->next;
+        printf("%d is popped from the stack\n", temp->data);
+        free(temp);
     }
 }
 
-void dequeue(queue *Pqueue)
+void display()
 {
-    int i, priority = Pqueue->data[Pqueue->front], position = Pqueue->front;
-    if (Pqueue->front > Pqueue->rear)
+    if (top == NULL)
     {
-        printf("Queue Underflow\n");
+        printf("Stack is empty\n");
     }
     else
     {
-        for (i = Pqueue->front; i <= Pqueue->rear; i++)
+        Node *temp = top;
+        printf("The stack is: ");
+        while (temp != NULL)
         {
-            if (Pqueue->data[i] < priority)
-            {
-                priority = Pqueue->data[i];
-                position = i;
-            }
-        }
-        for (i = position; i < Pqueue->rear; i++)
-        {
-            Pqueue->data[i] = Pqueue->data[i + 1];
-        }
-        Pqueue->rear--;
-        printf("Element %d deleted successfully\n", priority);
-    }
-}
-
-void display(queue Pqueue)
-{
-    int i;
-    if (Pqueue.front > Pqueue.rear)
-    {
-        printf("Queue Underflow\n");
-    }
-    else
-    {
-        printf("The elements in the queue are: ");
-        for (i = Pqueue.front; i <= Pqueue.rear; i++)
-        {
-            printf("%d ", Pqueue.data[i]);
+            printf("%d\t", temp->data);
+            temp = temp->next;
         }
         printf("\n");
     }
