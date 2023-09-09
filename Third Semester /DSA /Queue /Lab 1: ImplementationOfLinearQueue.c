@@ -67,6 +67,7 @@ void enqueue(queueType *q)
 }
 void dequeue(queueType *q)
 {
+    
     if (q->front > q->rear)
     {
         printf("ERROR! Queue Underflow\n");
