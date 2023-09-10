@@ -18,6 +18,7 @@ void display(queue);
 
 int main()
 {
+
     struct queue Pqueue;
     Pqueue.front = 0;
     Pqueue.rear = -1;
@@ -75,7 +76,7 @@ void enqueue(queue *Pqueue)
 void dequeue(queue *Pqueue)
 {
     int i, priority = Pqueue->data[Pqueue->front], position = Pqueue->front;
-    if (Pqueue->front == Pqueue->rear)
+    if (Pqueue->front > Pqueue->rear)
     {
         printf("Queue Underflow\n");
     }
@@ -101,7 +102,7 @@ void dequeue(queue *Pqueue)
 void display(queue Pqueue)
 {
     int i;
-    if (Pqueue.front == Pqueue.rear)
+    if (Pqueue.front > Pqueue.rear)
     {
         printf("Queue Underflow\n");
     }
