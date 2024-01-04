@@ -1,0 +1,59 @@
+#include <stdio.h>
+#define N 100
+typedef struct {
+    int p, a, b, w;
+} P;
+int n;
+P g[N];
+float tw, tt;
+
+int main() {
+    printf("Enter the number of processes:");
+    scanf("%d", &n);
+    printf("Enter arrival time and burst time for each process:\n");
+    for (int i = 0; i < n; i++) {
+        printf("Process %d:", i + 1);
+        scanf("%d%d", &g[i].a, &g[i].b);
+        g[i].p = i + 1;
+    }
+
+    for (int t = 0, c = -1, i = 0; i < n;) {
+        if (g[i].a <= t && g[i].b > 0) {
+            if (c == -1 || g[i].b < g[c].b || (g[i].b == g[c].b && g[i].a < g[c].a)) {
+                c = i;
+            }
+            i++;
+        } else {
+            t++;
+            if (c != -1) {
+                g[c].b--;
+
+                if (g[c].b == 0) {
+                    tw += t - g[c].a - g[c].w;
+                    tt += t - g[c].a;
+                    c = -1;
+                }
+
+                for (int j = 0; j < n; j++) {
+                    if (g[j].a <= t && g[j].b > 0 && j != c) {
+                        g[j].w++;
+                    }
+                }
+
+                if (c != -1) {
+                    g[c].w = t - g[c].a;
+                }
+            }
+        }
+    }
+
+    printf("\nProcess \t Arrival Time\t Burst Time\t Waiting Time\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d\t\t\t %d\t\t\t %d\t\t\t %d\n", g[i].p, g[i].a, g[i].b, g[i].w);
+    }
+
+    printf("Average Waiting Time: %.2f\n", tw / n);
+    printf("Average Turnaround Time: %.2f\n", tt / n);
+
+    return 0;
+}
