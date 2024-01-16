@@ -1,0 +1,63 @@
+#include <stdio.h>
+#define N 100
+
+typedef struct {
+    int p, a, b, w, pri;
+} P;
+
+int n;
+P g[N];
+float tw, tt;
+
+int main() {
+    // Write C code here
+    printf("Enter the number of processes:");
+    scanf("%d", &n);
+    printf("Enter arrival time, burst time, and priority for each process:\n");
+    for (int i = 0; i < n; i++) {
+        printf("Process %d:", i + 1);
+        scanf("%d%d%d", &g[i].a, &g[i].b, &g[i].pri);
+        g[i].p = i + 1;
+    }
+
+    for (int t = 0, c = -1, i = 1; i <= n;) {
+        int max_pri = -1;
+        for (int j = 0; j < n; j++) {
+            if (g[j].a <= t && g[j].b > 0 && g[j].pri > max_pri) {
+                max_pri = g[j].pri;
+                c = j;
+            }
+        }
+        if (c != -1) {
+            g[c].b--;
+
+            if (g[c].b == 0) {
+                // Update turnaround time using waiting time and execution time
+                tw += t + 1 - g[c].a - g[c].w;
+                tt += t + 1 - g[c].a;
+                c = -1;
+                i++;
+            }
+
+            for (int j = 0; j < n; j++) {
+                if (g[j].a <= t && g[j].b > 0 && j != c) {
+                    g[j].w++;
+                }
+            }
+
+            if (c != -1) {
+                g[c].w = t + 1 - g[c].a;
+            }
+        } else {
+            t++;
+        }
+    }
+
+    printf("\n Process\t Arrival time\t Burst Time\t Priority\t Waiting time\t ");
+    for (int i = 0; i < n; i++) {
+        printf("%d\t\t\t %d\t\t\t %d\t\t\t  %d\t\t\t %d\n", g[i].p, g[i].a, g[i].b, g[i].pri, g[i].w);
+    }
+    printf("Average Waiting Time: %.2f\n", tw / n);
+    printf("Average Turnaround Time: %.2f\n", tt / n);
+    return 0;
+}
