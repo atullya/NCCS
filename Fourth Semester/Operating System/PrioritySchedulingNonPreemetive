@@ -1,63 +1,73 @@
-#include <stdio.h>
-#define N 100
-
-typedef struct {
-    int p, a, b, w, pri;
-} P;
-
-int n;
-P g[N];
-float tw, tt;
+#include<stdio.h>
 
 int main() {
-    // Write C code here
-    printf("Enter the number of processes:");
+    int bt[20], p[20], wt[20], tat[20], pr[20], at[20], i, j, n, total = 0, pos, temp, avg_wt, avg_tat;
+
+    printf("Enter Total Number of Processes:");
     scanf("%d", &n);
-    printf("Enter arrival time, burst time, and priority for each process:\n");
-    for (int i = 0; i < n; i++) {
-        printf("Process %d:", i + 1);
-        scanf("%d%d%d", &g[i].a, &g[i].b, &g[i].pri);
-        g[i].p = i + 1;
+
+    printf("\nEnter Arrival Time, Burst Time, and Priority\n");
+    for(i = 0; i < n; i++) {
+        printf("\nP[%d]\n", i + 1);
+        printf("Arrival Time:");
+        scanf("%d", &at[i]);
+        printf("Burst Time:");
+        scanf("%d", &bt[i]);
+        printf("Priority:");
+        scanf("%d", &pr[i]);
+        p[i] = i + 1;  // contains process number
     }
 
-    for (int t = 0, c = -1, i = 1; i <= n;) {
-        int max_pri = -1;
-        for (int j = 0; j < n; j++) {
-            if (g[j].a <= t && g[j].b > 0 && g[j].pri > max_pri) {
-                max_pri = g[j].pri;
-                c = j;
+    // sorting based on arrival time, burst time, priority, and process number using selection sort
+    for(i = 0; i < n; i++) {
+        pos = i;
+        for(j = i + 1; j < n; j++) {
+            if(at[j] < at[pos] || (at[j] == at[pos] && pr[j] < pr[pos])) {
+                pos = j;
             }
         }
-        if (c != -1) {
-            g[c].b--;
 
-            if (g[c].b == 0) {
-                // Update turnaround time using waiting time and execution time
-                tw += t + 1 - g[c].a - g[c].w;
-                tt += t + 1 - g[c].a;
-                c = -1;
-                i++;
-            }
+        temp = pr[i];
+        pr[i] = pr[pos];
+        pr[pos] = temp;
 
-            for (int j = 0; j < n; j++) {
-                if (g[j].a <= t && g[j].b > 0 && j != c) {
-                    g[j].w++;
-                }
-            }
+        temp = bt[i];
+        bt[i] = bt[pos];
+        bt[pos] = temp;
 
-            if (c != -1) {
-                g[c].w = t + 1 - g[c].a;
-            }
-        } else {
-            t++;
-        }
+        temp = at[i];
+        at[i] = at[pos];
+        at[pos] = temp;
+
+        temp = p[i];
+        p[i] = p[pos];
+        p[pos] = temp;
     }
 
-    printf("\n Process\t Arrival time\t Burst Time\t Priority\t Waiting time\t ");
-    for (int i = 0; i < n; i++) {
-        printf("%d\t\t\t %d\t\t\t %d\t\t\t  %d\t\t\t %d\n", g[i].p, g[i].a, g[i].b, g[i].pri, g[i].w);
+    wt[0] = 0; // waiting time for the first process is zero
+    total = 0;
+
+    // calculate waiting time
+    for(i = 1; i < n; i++) {
+        wt[i] = 0;
+        for(j = 0; j < i; j++)
+            wt[i] += bt[j];
+        total += wt[i];
     }
-    printf("Average Waiting Time: %.2f\n", tw / n);
-    printf("Average Turnaround Time: %.2f\n", tt / n);
+
+    avg_wt = total / n; // average waiting time
+    total = 0;
+
+    printf("\nProcess\t Arrival Time\t Burst Time\t Priority\t Waiting Time\t Turnaround Time");
+    for(i = 0; i < n; i++) {
+        tat[i] = bt[i] + wt[i]; // calculate turnaround time
+        total += tat[i];
+        printf("\nP[%d]\t\t %d\t\t %d\t\t %d\t\t %d\t\t\t %d", p[i], at[i], bt[i], pr[i], wt[i], tat[i]);
+    }
+
+    avg_tat = total / n; // average turnaround time
+    printf("\n\nAverage Waiting Time=%d", avg_wt);
+    printf("\nAverage Turnaround Time=%d\n", avg_tat);
+
     return 0;
 }
