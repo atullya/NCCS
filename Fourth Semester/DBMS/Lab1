@@ -1,0 +1,39 @@
+     --Question---
+--1) Create Table student(sid,sname,slevel,age,sex)
+--2) Create Table Instructor(Iid,Iname,Age,Sex)
+
+--Solution--
+
+
+--1)STUDENT TABLE
+create table student(
+sid number,
+sname varchar(20),
+s_level varchar(20),
+age int,
+sex varchar2(20),
+primary key(sid)
+);
+/
+insert into student values(101,'Atullya','Bachelor',21,'Male');
+insert into student values(102,'Liraj','Master',26,'Male');
+insert into student values(103,'Resha','Master',25,'Female');
+insert into student values(104,'Medhavi','Master',25,'Female');
+/
+
+select * from student
+/
+
+--2) Instructor TABLE
+
+create table instructor(
+i_id number,
+i_name varchar(20),
+age int,
+sex varchar(20),
+primary key(i_id)
+);
+insert into instructor values(600,'Manish',43,'Male');
+insert into instructor values(601,'Shristhi',33,'Female');
+/
+select * from instructor;
