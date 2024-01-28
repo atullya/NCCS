@@ -1,0 +1,38 @@
+--QWN--
+--1. Create table department(d_no,d_name,block_no)
+--2. Create table employee(e_id,e_name,salary, address,d_no)
+
+--solution--
+
+create table department(
+d_no number primary key,
+d_name varchar(20) not null,
+block_no number
+);
+
+/
+insert into department values (101,'CSIT',20);
+insert into department values (102,'BBS',30);
+insert into department values (103,'BBM',40);
+/
+select * from department;
+/
+
+
+--2) employee
+create table employee(
+e_id number primary key,
+e_name varchar(20) not null,
+salary number,
+address varchar(20),
+d_no number,
+foreign key(d_no) references department(d_no)
+);
+/
+insert into employee values(900,'Atulya',20000,'Bafal',101);
+insert into employee values(901,'Resha',120000,'Lagan',103);
+/
+select * from employee;
+/
+
+
