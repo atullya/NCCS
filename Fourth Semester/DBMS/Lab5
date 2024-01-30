@@ -1,0 +1,67 @@
+--qwn
+--Create a table employee(eid,ename,address, salary). Insert at least five records to this table. Write SQL query for the following
+--1) Increase the salary of every employee by 20 percent whose address starts with 'K'
+--2) Change salary of employee to 40000 whose address is Pokhara
+--3) Find maximum minimum salary of employee
+--4) Find average salary of employee.
+--5) Find address wise salary.
+--6) Display employee details on the bais of salary
+--7) Find average address wise salary of employee in which there are at least 2 employee
+
+
+drop table employee;
+/
+
+create table employee (
+    eid number primary key,
+    ename varchar(20),
+    address varchar(20),
+    salary number,
+    constraint check_salary_range check (salary between 17000 and 200000)
+);
+
+/
+insert into employee values(1,'Atullya','Kathmandu',120000);
+insert into employee values(2,'Bisan','Pokhara',70000);
+insert into employee values(3,'Nischal','Baglung',80000);
+insert into employee values(4,'Utsarga','Kathmandu',50000);
+insert into employee values(5,'Pukar','Dhading',20000);
+insert into employee values(6,'Mandish','Bhaktpur',120000);
+
+/
+select * from employee;
+/
+--qwn1
+UPDATE employee
+SET salary = salary * 1.20
+WHERE address LIKE 'K%';
+/
+--qwn2
+UPDATE employee
+SET salary = 40000
+WHERE address = 'Pokhara';
+/
+--qwn3
+SELECT MAX(salary) AS max_salary, MIN(salary) AS min_salary
+FROM employee;
+/
+--qwn4
+SELECT AVG(salary) AS avg_salary
+FROM employee;
+/
+--qwn5
+SELECT address, AVG(salary) AS avg_salary
+FROM employee
+GROUP BY address;
+/
+--qwn6
+SELECT eid, ename, address, salary
+FROM employee
+ORDER BY salary;
+/
+--qwn7
+SELECT address, AVG(salary) AS avg_salary
+FROM employee
+GROUP BY address
+HAVING COUNT(*) >= 2;
+/
