@@ -1,0 +1,50 @@
+--Question--
+--Lab3 QWN
+-- Create a table high_paid employee from existing table using sub_query. existing table is employee(eid,ename,salary)
+
+--Lab4 QWN
+--Add and delete a new column to existing table highly_paid_employee
+
+
+
+drop table employee;
+/
+create table employee(
+eid number primary key,
+ename varchar(20),
+salary number
+);
+/
+insert into employee values (101,'Atullya', 120000);
+insert into employee values (102,'Medhavi', 200000);
+insert into employee values (103,'Liraj', 90000);
+insert into employee values (104, 'Tribhuvan', 1900000);
+insert into employee values (105, 'Roshan', 2000);
+/
+
+--making new table from existing table--
+create table highly_paid_employee2
+as 
+select * from employee
+where salary >=100000
+/
+
+alter table highly_paid_employee2
+add Address varchar(20);
+/
+update highly_paid_employee2 set Address='kathmandu';
+/
+alter table highly_paid_employee
+add PhoneNo number;
+/
+update highly_paid_employee set PhoneNo=9823508947 where eid='101';
+update highly_paid_employee set PhoneNo=9813324332 where eid='102';
+update highly_paid_employee set PhoneNo=9823506667 where ename='Tribhuvan';
+/
+select * from highly_paid_employee2;
+/
+alter table high_paid_employee2
+drop column PhoneNo;
+/
+
+
