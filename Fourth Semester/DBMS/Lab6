@@ -1,0 +1,66 @@
+--Create two table DEmployee(eid,ename,salary) and MEmployee(eid,ename,salary)
+--1 Insert five records to each table.
+--2. Find Union Operation
+--3. Find Itersection Operation
+--4.  Find difference Operation
+--5. Find Cartesian product operation
+
+create table Demployee(
+eid integer primary key,
+ename varchar2(30) not null,
+salary number not null,
+constraint sal_check check (salary between 20000 and 100000)
+);
+/
+insert into Demployee values (101, 'Atullya', 35000);
+insert into Demployee values (102, 'Utsarga', 55000);
+insert into Demployee values (103, 'Pukar', 45000);
+insert into Demployee values (104, 'Aakash', 65000);
+insert into Demployee values (105, 'Nischal', 75000);
+insert into Demployee values (106, 'Mandish', 85000);
+insert into Demployee values (107, 'Bisan', 90000);
+insert into Demployee values (108, 'Bisan1', 1190000);
+/
+select * from Demployee;
+/
+drop table Memployee;
+/
+create table Memployee(
+eid integer primary key,
+ename varchar (30) not null,
+salary number not null,
+constraint msal_check check (salary between 20000 and 100000)
+);
+/
+insert into Memployee values (101,'Atullya',35000);
+insert into Memployee values (102,'Utsarga',55000);
+insert into Memployee values (103,'Amardeep',45000);
+insert into Memployee values (104,'Aakash',65000);
+insert into Memployee values (105,'Sarad',75000);
+insert into Memployee values (106,'Mandish',85000);
+insert into Memployee values (107,'Waibhawa',90000);
+/
+select * from Demployee cross join Memployee;
+/
+
+-- Union of both tables
+select * from DEmployee
+union
+select * from MEmployee;
+
+/
+
+-- Intersection of both tables
+select * from DEmployee
+intersect
+select * from MEmployee;
+/
+
+-- Difference between DEmployee and MEmployee
+select * from DEmployee
+minus
+select * from MEmployee;
+/
+-- Cartesian product of both tables
+select * from DEmployee cross join MEmployee;
+/
