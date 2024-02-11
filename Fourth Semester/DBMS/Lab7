@@ -1,0 +1,63 @@
+--Create two table namely department (dept_id, name, dept_block-no) and Employee (eid, enmae, salary, address, dept_no) with primary key, foreign keys and other constraints, 
+--Write SQL query to perform follow
+--1. Insert 5 Records to each table.
+--2. Delete one record from each table.
+--3. Find inner join of department and employee
+--4. Find outer join (left,right and full ) of employee and department.
+--5. Find self join operation on employee table.
+
+drop table department;
+/
+drop table employee1;
+/
+create table department(
+dept_id number primary key,
+name varchar(20) not null,
+dept_block_no int
+);
+/
+
+
+insert into department values(11,'CSIT',501);
+insert into department values(22,'BIT',601);
+insert into department values(33,'BCA',701);
+insert into department values(44,'BIM',801);
+insert into department values(55,'BBA',901);
+insert into department values(66,'BSW',1001);
+  select * from department;
+  /
+  delete from department where dept_id=11;
+
+  /
+ create table employee1(
+eid number primary key,
+ename varchar(20) not null,
+salary number,
+address varchar(20),
+deptno number,
+foreign key (deptno) references department(dept_id) on delete cascade
+);
+/
+
+
+insert into employee1 values(1061,'Pukar',30000,'Balaju',11);
+insert into employee1 values(1051,'Nischal',50000,'Basundhara',22);
+insert into employee1 values(1004,'Utsarga',90000,'Bafal',33);
+insert into employee1 values(1071,'Bisan',34000,'Lainchaur',44);
+insert into employee1 values(1073,'Atullya',840000,'Bafal',55);
+insert into employee1 values(1013,'Mandish',740000,'Nardevi',66);
+insert into employee1 values(1213,'Bharad',74000,'Tokha',22);
+delete from employee1 where eid=1061;
+select * from employee1;
+/
+
+--3 no answer
+select * from department d inner join employee1 e on(d.dept_id=e.deptno);
+
+--4 no answer
+select * from department d left outer join employee1 e on(d.dept_id=e.deptno);
+select * from department d right outer join employee1 e on(d.dept_id=e.deptno);
+select * from department d full outer join employee1 e on(d.dept_id=e.deptno);
+
+--5 no answer
+select * from employee1 e1 inner join employee e2 on (e1.salary<e2.salary);
