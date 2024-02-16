@@ -60,4 +60,5 @@ select * from department d right outer join employee1 e on(d.dept_id=e.deptno);
 select * from department d full outer join employee1 e on(d.dept_id=e.deptno);
 
 --5 no answer
-select * from employee1 e1 inner join employee e2 on (e1.salary<e2.salary);
+select * from employee1 e1 inner join employee1 e2 on (e1.salary=e2.salary);
+--select * from employee1 e1 inner join employee1 e2 on (e1.salary<e2.salary);
