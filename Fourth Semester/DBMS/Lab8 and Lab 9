@@ -3,6 +3,11 @@
 --Also create trigger called result-compute-trigger that computes total marks, percentage and division
 --when marks on individual subjects are inserted.
 
+--Lab 9
+--create view called student_viws from student that stores student information having percentage greater than 70.
+
+
+
 
 DROP TABLE student;
 /
@@ -63,3 +68,12 @@ INSERT INTO student (sid, sname, dbms, toc, ai, os, cn) VALUES (110, 'Nischal', 
 -- Select all records from the student table for debugging purposes
 SELECT * FROM student;
 
+
+--lab9
+drop view student_view;
+/
+create view student_view as
+select * from student
+where percentage>=70
+/
+select * from student_view
