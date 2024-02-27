@@ -1,0 +1,125 @@
+--Lab 8 
+--Create a table student (sid,sname,dbms,toc,ai,cn,os,total,percentage,division). Also create trigger called result-compute-trigger that computes total marks, percentage and division
+--when marks on individual subjects are inserted.
+
+--Lab 9
+--create view called student_viws from student that stores student information having percentage greater than 70.
+
+
+--Lab 10
+--create employee(eid,ename,address,salary) 
+--Insert five records to this table.
+--update salary of employee according to tfollowing rule.
+--If salary is greater that 80000 then increase by 10000
+--if salary is between 60000 to 80000 then increase by 12000
+--if salary is between 40000 to 80000 then increase by 140000
+--else increase by 15000
+
+-- Drop existing table and trigger if they exist
+DROP TABLE student;
+/
+DROP TRIGGER trig_result_compute;
+/
+
+-- Create the student table
+CREATE TABLE student (
+    sid NUMBER PRIMARY KEY,
+    sname VARCHAR2(20),
+    dbms INT,
+    toc INT,
+    cn INT,
+    os INT,
+    ai INT,
+    total INT,
+    percentage INT,
+    div VARCHAR2(20)
+);
+/
+
+-- Enable server output
+SET SERVEROUTPUT ON;
+
+-- Create the trigger trig_result_compute
+CREATE  TRIGGER trig_result_compute
+BEFORE INSERT ON student
+FOR EACH ROW
+BEGIN
+    :NEW.total := :NEW.dbms + :NEW.toc + :NEW.ai + :NEW.os + :NEW.cn;
+    :NEW.percentage := :NEW.total / 5;
+    
+    IF (:NEW.percentage >= 80) THEN
+        :NEW.div := 'Distinction';
+    ELSIF (:NEW.percentage >= 60) THEN
+        :NEW.div := 'First';
+    ELSIF (:NEW.percentage >= 45) THEN
+        :NEW.div := 'Second';
+    ELSIF (:NEW.percentage >= 32) THEN
+        :NEW.div := 'Third';
+    ELSE
+        :NEW.div := 'Fail';
+    END IF;
+
+    DBMS_OUTPUT.PUT_LINE('Total marks = ' || :NEW.total);
+    DBMS_OUTPUT.PUT_LINE('Percentage = ' || :NEW.percentage);
+    DBMS_OUTPUT.PUT_LINE('Division = ' || :NEW.div);
+END;
+/
+
+-- Insert data into the student table
+INSERT INTO student (sid, sname, dbms, toc, ai, os, cn) VALUES (107, 'Atullya', 99, 60, 45, 60, 70);
+INSERT INTO student (sid, sname, dbms, toc, ai, os, cn) VALUES (108, 'Pukar', 99, 10, 65, 20, 80);
+INSERT INTO student (sid, sname, dbms, toc, ai, os, cn) VALUES (109, 'Umanga', 99, 20, 95, 30, 40);
+INSERT INTO student (sid, sname, dbms, toc, ai, os, cn) VALUES (110, 'Nischal', 99, 70, 05, 40, 10);
+/
+
+-- Select all records from the student table for debugging purposes
+SELECT * FROM student;
+
+
+--lab9
+drop view student_view;
+/
+create view student_view as
+select * from student
+where percentage>=20
+/
+select * from student_view
+
+
+--lab 10
+/
+-- Drop existing table if it exists
+DROP TABLE Employee;
+/
+
+-- Create the Employee table
+CREATE TABLE Employee (
+    eid NUMBER PRIMARY KEY,
+    ename VARCHAR2(20),
+    address VARCHAR2(20),
+    salary NUMBER,
+    CONSTRAINT sal_check CHECK (salary BETWEEN 18000 AND 100000),
+    CONSTRAINT add_check CHECK (address IN ('Kathmandu', 'Lalitpur', 'Bhaktapur'))
+);
+/
+
+-- Select all records from the Employee table for debugging purposes
+SELECT * FROM Employee;
+
+-- Insert sample data into the Employee table
+INSERT INTO Employee VALUES (101, 'Manish', 'Kathmandu', 30000);
+INSERT INTO Employee VALUES (102, 'Bharad', 'Lalitpur', 40000);
+INSERT INTO Employee VALUES (103, 'Crocodile', 'Bhaktapur', 50000);
+INSERT INTO Employee VALUES (104, 'Amardeep', 'Kathmandu', 60000);
+
+/
+update employee
+set salary=case
+when salary between 10000 and 20000 then salary+5000
+when salary between 20000 and 30000 then salary+3000
+when salary between 30000 and 40000 then salary+2000
+when salary between 40000 and 50000 then salary+1000
+else
+salary+500
+end
+/
