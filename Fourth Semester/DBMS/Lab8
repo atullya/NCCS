@@ -1,5 +1,6 @@
 --Lab 8 
---Create a table student (sid,sname,dbms,toc,ai,cn,os,total,percentage,division). Also create trigger called result-compute-trigger that computes total marks, percentage and division
+--Create a table student (sid,sname,dbms,toc,ai,cn,os,total,percentage,division). 
+--Also create trigger called result-compute-trigger that computes total marks, percentage and division
 --when marks on individual subjects are inserted.
 
 --Lab 9
