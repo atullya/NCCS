@@ -1,0 +1,47 @@
+
+
+--Lab 10
+--create employee(eid,ename,address,salary) 
+--Insert five records to this table.
+--update salary of employee according to tfollowing rule.
+--If salary is greater that 80000 then increase by 10000
+--if salary is between 60000 to 80000 then increase by 12000
+--if salary is between 40000 to 80000 then increase by 140000
+--else increase by 15000
+
+/
+-- Drop existing table if it exists
+DROP TABLE Employee;
+/
+
+-- Create the Employee table
+CREATE TABLE Employee (
+    eid NUMBER PRIMARY KEY,
+    ename VARCHAR2(20),
+    address VARCHAR2(20),
+    salary NUMBER,
+    CONSTRAINT sal_check CHECK (salary BETWEEN 18000 AND 100000),
+    CONSTRAINT add_check CHECK (address IN ('Kathmandu', 'Lalitpur', 'Bhaktapur'))
+);
+/
+
+-- Select all records from the Employee table for debugging purposes
+SELECT * FROM Employee;
+
+-- Insert sample data into the Employee table
+INSERT INTO Employee VALUES (101, 'Manish', 'Kathmandu', 30000);
+INSERT INTO Employee VALUES (102, 'Bharad', 'Lalitpur', 40000);
+INSERT INTO Employee VALUES (103, 'Crocodile', 'Bhaktapur', 50000);
+INSERT INTO Employee VALUES (104, 'Amardeep', 'Kathmandu', 60000);
+
+/
+update employee
+set salary=case
+when salary between 10000 and 20000 then salary+5000
+when salary between 20000 and 30000 then salary+3000
+when salary between 30000 and 40000 then salary+2000
+when salary between 40000 and 50000 then salary+1000
+else
+salary+500
+end
+/
