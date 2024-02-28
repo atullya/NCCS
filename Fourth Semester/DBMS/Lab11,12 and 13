@@ -1,0 +1,105 @@
+--lab 11
+--Create table Account (Aaano, customer_name, amount). Add at least 10 records to this table. Also create triggger called
+--backup_trigger that stores deleted records of Account table.
+drop table account;
+/
+create table account (
+accno varchar2(20) primary key,
+customer_name varchar2(20),
+amount number);
+
+/
+insert into account values('A001','Atullya',30000);
+insert into account values('A002','Umanga',40000);
+insert into account values('A003','Manish',50000);
+insert into account values('A004','Bharad',60000);
+
+
+create table back_account (
+accno varchar2(20) primary key,
+customer_name varchar2(20),
+amount number);
+/
+drop table back_account;
+/
+drop trigger back_up_trigger;
+/
+create trigger back_up_trigger before delete on account for each row
+begin
+insert into back_account values (:old.accno,:old.customer_name,:old.amount);
+end;
+/
+select * from back_account;
+/
+delete from account where accno='A001';
+/
+
+
+--lab12
+--Create table Employee(eid,ename,address,salary). Insert at least 10 records to this table.Create materialized view called emp_back_up that stores 
+--data from employee table by updating in every minute
+
+drop table employee;
+/
+create table employee
+(
+eid number primary key,
+ename varchar2(20),
+address varchar2(20),
+salary number,
+check (salary between 18000 and 100000),
+check (address in ('Kathmandu','Lalitpur','Bhaktapur'))
+);
+/
+insert into employee values (101,'Atullya','Kathmandu',30000);
+insert into employee values (102,'Utsarga','Kathmandu',40000);
+insert into employee values (103,'Manish','Bhaktapur',50000);
+insert into employee values (104,'Umanga','Lalitpur',60000);
+insert into employee values (105,'Puskar','Kathmandu',70000);
+insert into employee values (106,'Niischal','Bhaktapur',80000);
+insert into employee values (107,'Bysan','Lalitpur',90000);
+insert into employee values (108,'Abhi','Bhaktapur',100000);
+insert into employee values (109,'Aaaksh','Kathmandu',20000);
+insert into employee values (110,'Amar','Lalitpur',19000);
+insert into employee values (111,'Amsdafar','Lalitpur',19000);
+/
+create materialized view log on Employee;
+/
+create materialized view back_emp_recl
+refresh fast on demand
+next trunc(SYSTIMESTAMP,'MI') + INTERVAL '1' MINUTE
+as
+select * from employee;
+/
+select * from back_emp_recl;
+/
+select * from employee;
+/
+
+--lab 13
+--Create table Account (Aaano, customer_name, amount). Add at least 10 records to this table. Transfer Rs 10000 from accno 'A001' to 'A002'
+drop table account;
+/
+create table account (
+accno varchar2(20) primary key,
+customer_name varchar2(20),
+amount number);
+
+/
+insert into account values('A001','Atullya',30000);
+insert into account values('A002','Umanga',40000);
+insert into account values('A003','Manish',50000);
+insert into account values('A004','Bharad',60000);
+/
+select * from account;
+/
+savepoint A;
+/
+begin
+update account set amount= amount + 1000 where accno='A001';
+update account set amount= amount - 1000 where accno='A002';
+end;
+/
+rollback A;
+/
+
