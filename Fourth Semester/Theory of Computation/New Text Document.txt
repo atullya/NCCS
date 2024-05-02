@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Function to simulate the Turing Machine
+bool acceptsLanguage(string input) {
+    int n = input.length();
+    int a = 0, b = 0;
+    bool inMiddle = false;
+
+    // Check if the first character is 'a'
+    if (n == 0 || input[0] != 'a') {
+        return false;
+    }
+
+    // Traverse the input string
+    for (int i = 0; i < n; i++) {
+        if (input[i] == 'a') {
+            a++;
+        } else if (input[i] == 'b') {
+            b++;
+            if (!inMiddle) {
+                return false; // 'b' should not appear before 'c'
+            }
+        } else if (input[i] == 'c') {
+            inMiddle = true;
+        } else {
+            return false; // Reject if the input contains any other character
+        }
+    }
+
+    // Check if the number of 'a's and 'b's are equal
+    return a == b;
+}
+
+int main() {
+    string input;
+    cout << "Enter the input string: ";
+    cin >> input;
+
+    if (acceptsLanguage(input)) {
+        cout << "The input string is accepted." << endl;
+    } else {
+        cout << "The input string is rejected." << endl;
+    }
+
+    return 0;
+}
