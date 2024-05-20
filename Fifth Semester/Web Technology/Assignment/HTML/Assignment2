@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Infrastructure</title>
+</head>
+<body>
+    <h1>College Infrastructure</h1>
+    <p>Welcome to the overview of our college infrastructure. Below, you will find details about the various departments in our institution.</p>
+
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Department</th>
+                <th>Building</th>
+                <th>Facilities</th>
+                <th>Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Computer Science</td>
+                <td>Building A</td>
+                <td>
+                    <ul>
+                        <li>Modern Computer Labs</li>
+                        <li>Research Centers</li>
+                        <li>Library</li>
+                    </ul>
+                </td>
+                <td>Email: csdept@example.com<br>Phone: (123) 456-7890</td>
+            </tr>
+            <tr>
+                <td>Mechanical Engineering</td>
+                <td>Building B</td>
+                <td>
+                    <ul>
+                        <li>Workshops</li>
+                        <li>Design Studios</li>
+                        <li>Research Labs</li>
+                    </ul>
+                </td>
+                <td>Email: mecheng@example.com<br>Phone: (123) 456-7891</td>
+            </tr>
+            <tr>
+                <td>Electrical Engineering</td>
+                <td>Building C</td>
+                <td>
+                    <ul>
+                        <li>Electrical Labs</li>
+                        <li>Project Rooms</li>
+                        <li>Library</li>
+                    </ul>
+                </td>
+                <td>Email: eedept@example.com<br>Phone: (123) 456-7892</td>
+            </tr>
+            <tr>
+                <td>Civil Engineering</td>
+                <td>Building D</td>
+                <td>
+                    <ul>
+                        <li>Structural Labs</li>
+                        <li>Survey Rooms</li>
+                        <li>Material Testing Labs</li>
+                    </ul>
+                </td>
+                <td>Email: civeng@example.com<br>Phone: (123) 456-7893</td>
+            </tr>
+            <tr>
+                <td>Business Administration</td>
+                <td>Building E</td>
+                <td>
+                    <ul>
+                        <li>Conference Halls</li>
+                        <li>Computer Labs</li>
+                        <li>Library</li>
+                    </ul>
+                </td>
+                <td>Email: busadmin@example.com<br>Phone: (123) 456-7894</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
