@@ -1,0 +1,52 @@
+Qwn:Create the following table in HTML with primary data
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <title>Browser</title>
+</head>
+
+<body>
+ <table border="1">
+   <tr>
+     <th>Page No</th>
+     <th>Name</th>
+     <th>Semester/Year</th>
+   </tr>
+   <tr>
+     <td></td>
+      <td></td>
+     <td>
+     <table border="">
+       <tr>
+         <th>1</th>
+         <th>1</th>
+         <th>2</th>
+         <th>2</th>
+         <th>3</th>
+         <th>3</th>
+         <th>4</th>
+         <th>4</th>
+       
+       </tr>
+       <tr>
+         <td>1</td>
+          
+           <td>2</td>
+           <td>3</td>
+           <td>4</td>
+           <td>5</td>
+           <td>6</td>
+           <td>7</td>
+          <td>8</td>
+       </tr>
+          
+       
+     </table>
+     </td>
+     
+  </table>
+</body>
+
+</html>
