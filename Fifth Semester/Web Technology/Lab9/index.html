@@ -1,27 +1,32 @@
+<!-- write a program on html css i) set background of h1 and p tag using inline css.
+ii)give on example of internal css iii)example of external CSS iv)give an
+example using padding/margin and border -->
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>HTML & CSS</title>
-    <link rel="stylesheet" href="Lab9.css">
-</head>
-<body>
-    <h1 style="background-color: aqua;">File Header using inline CSS</h1>
-    <p style="background-color: aquamarine;">This is the content in a paragraph using inline CSS.</p>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 style="background-color: yellow">This is file heading</h1>
+    <p style="background-color: red">
+      This is the text written in a paragraph using inline CSS.
+    </p>
 
     <p class="internal-css">This is styled using internal CSS.</p>
-    
+
     <p class="external-css">This is styled using external CSS.</p>
 
-    <br>
-    <button>Button</button>
+    <br />
 
     <style>
-        .internal-css{
-            background-color: red;
-            color: white;
-            padding: 5px;
-            display: inline;
-        }
+      .internal-css {
+        background-color: red;
+        color: white;
+        padding: 5px;
+        margin: 10px 2px 1px 10px;
+        display: inline;
+      }
     </style>
-</body>
+  </body>
 </html>
