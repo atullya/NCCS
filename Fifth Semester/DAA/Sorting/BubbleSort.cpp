@@ -42,7 +42,7 @@ cout<<"Before sorting: \n";
     
 BubbleSort(a,9);
 
-cout<<"After sorting: \n";
+cout<<"After Bubble sorting: \n";
  for(int i=0 ;i<9 ;i++)
         {
     cout<<a[i]<<"\t" ;
