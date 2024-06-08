@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+div {
+  margin: 20px;
+  padding: 20px;
+  color: white;
+  font-size: 20px;
+}
+
+.static {
+  position: static;
+  background-color: #ff5733;
+}
+
+.relative {
+  position: relative;
+  top: 20px;
+  left: 20px;
+  background-color: #33c1ff;
+}
+
+.absolute-container {
+  position: relative;
+  height: 200px;
+  background-color: #d3d3d3;
+  margin-bottom: 20px;
+}
+
+.absolute {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  background-color: #33ff77;
+}
+
+.fixed {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #ff33a8;
+}
+
+.sticky-container {
+  height: 600px;
+  background-color: #f3f3f3;
+  padding-top: 50px;
+}
+
+.sticky {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  background-color: #ffeb33;
+}
