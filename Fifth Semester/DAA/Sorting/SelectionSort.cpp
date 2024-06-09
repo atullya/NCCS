@@ -18,40 +18,35 @@ void SelectionSort(int A[],int n)
             }
             
             count =count+6;
-            
         }
         A[loc] = A[i];
         A[i] =least;
         count = count+8;
-    }    
+    }   
+		for(int i=0;i<n;i++)
+	{
+			cout<<A[i]<<"\t";
+	}
+	cout<<"\nThe total number of steps for selection sort is:"<<count<<endl; 
 }
-
 int main()
 {
     
-int a[] = {110,220,212,2,5,14,230,470,101,10};
-
-
-int n= sizeof(a)/sizeof(int);
-
-cout<<"Before sorting: \n";
-   for(int i=0 ;i<n ;i++)
-        {
-    cout<<a[i]<<"\t" ;    
-        }
-        
-    cout<<endl;
-    
-SelectionSort(a,n);
-
-cout<<"After Selection sorting: \n";
- for(int i=0 ;i<n ;i++)
-        {
-    cout<<a[i]<<"\t" ;
-        }
-cout<<endl;        
-cout<<"No. of Steps required for "<<n<<" is "<<count;        
-        
-return 0;
+	int n;
+	cout<<"Enter the size of data:";
+	cin>>n;
+	int a[n];
+	cout<<"Enter the Elements:"<<endl;
+	for(int i=0;i<n;i++)
+	{
+		cin>>a[i];
+	}
+	cout<<"Elements before sorting:"<<endl;
+		for(int i=0;i<n;i++)
+	{
+		cout<<a[i]<<"\t";
+	}
+	cout<<"\nElements after sorting:"<<endl;
+	SelectionSort(a,n);
 
 }
