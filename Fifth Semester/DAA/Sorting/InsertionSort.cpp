@@ -1,7 +1,6 @@
 #include<iostream>
 using namespace std;
 int count =0;
-
 void InsertionSort(int A[],int n)
 {
     int key;
@@ -18,30 +17,28 @@ void InsertionSort(int A[],int n)
         A[j+1] = key;
             count += 7;
     }
-
+	for(int i=0;i<n;i++)
+	{
+			cout<<A[i]<<"\t";
+	}
+	cout<<"\nThe total number of steps for insertion sort is:"<<count<<endl; 
 }
-
-
 int main()
 {
-    int a[] = {112,3,215,110,25,9,3,200,18,2};
-    int n = sizeof(a)/sizeof(int);
-    
-    cout<<"Before sorting :\n";
-    for(int i =0 ;i<n;i++)
-    {
-        cout<<a[i]<< "\t";
-        
-    }
-     InsertionSort(a,n);
-    
-    cout<<"\nAfter Insertion sorting :\n";
-    for(int i =0 ;i<n;i++)
-    {
-        cout<<a[i]<< "\t";
-        
-    }
-    
-    cout<<"\nRequired Number of steps for "<<n << " sized Data: "<<count;
-    return 0;
+    int n;
+	cout<<"Enter the size of data:";
+	cin>>n;
+	int a[n];
+	cout<<"Enter the Elements:"<<endl;
+	for(int i=0;i<n;i++)
+	{
+		cin>>a[i];
+	}
+	cout<<"Elements before sorting:"<<endl;
+		for(int i=0;i<n;i++)
+	{
+		cout<<a[i]<<"\t";
+	}
+	cout<<"\nElements after sorting:"<<endl;
+	InsertionSort(a,n);
 }
