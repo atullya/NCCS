@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Design a well-formed XML file for employee information -->
+
+<employees>
+    <employee>
+        <id>1</id>
+        <name>Atullya Maharjan</name>
+        <age>21</age>
+        <gender>Male</gender>
+        <position>Software Engineer</position>
+        <salary>75000</salary>
+        <address>
+           Bafal
+        </address>
+        <contact>
+            <email>atulmzn1@gmail.com</email>
+            <phone>123-456-7890</phone>
+        </contact>
+    </employee>
+    <employee>
+        <id>2</id>
+        <name>Manima Maharjan</name>
+        <age>28</age>
+        <gender>Female</gender>
+        <position>Project Manager</position>
+        <salary>85000</salary>
+        <address>
+        Sitapila
+        </address>
+        <contact>
+            <email>manima@example.com</email>
+            <phone>987-654-3210</phone>
+        </contact>
+    </employee>
+    <!-- Add more employee records as needed -->
+</employees>
