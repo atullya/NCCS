@@ -1,0 +1,59 @@
+<!-- write js code using array
+write js program on js using different method of string
+write a program on js using date object -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 16</title>
+</head>
+<body>
+    <h1> Example</h1>
+    <div id="output"></div>
+    <script>
+        // Array of strings
+        let fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry"];
+
+        // Function to perform string operations
+        function stringOperations(arr) {
+            let content = "";
+            
+            // Using string methods
+            arr.forEach((fruit, index) => {
+                let upperCaseFruit = fruit.toUpperCase(); // Convert to upper case
+                let lowerCaseFruit = fruit.toLowerCase(); // Convert to lower case
+                let fruitLength = fruit.length; // Get length of the string
+                let fruitSlice = fruit.slice(0, 3); // Get first 3 characters
+                let fruitReversed = fruit.split("").reverse().join(""); // Reverse the string
+
+                content += `
+                    <p>Fruit ${index + 1}: ${fruit}</p>
+                    <p>Upper Case: ${upperCaseFruit}</p>
+                    <p>Lower Case: ${lowerCaseFruit}</p>
+                    <p>Length: ${fruitLength}</p>
+                    <p>First 3 Characters: ${fruitSlice}</p>
+                    <p>Reversed: ${fruitReversed}</p>
+                    <hr>
+                `;
+            });
+
+            // Using Date object to get the current date and time
+            let currentDate = new Date();
+            let dateString = currentDate.toDateString(); // Get the date in a readable format
+            let timeString = currentDate.toTimeString(); // Get the time in a readable format
+
+            content += `
+                <p>Current Date: ${dateString}</p>
+                <p>Current Time: ${timeString}</p>
+            `;
+
+            // Display the content in the HTML
+            document.getElementById("output").innerHTML = content;
+        }
+
+        // Calling the function with the fruits array
+        stringOperations(fruits);
+    </script>
+</body>
+</html>
