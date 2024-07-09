@@ -1,0 +1,89 @@
+<!-- 
+ a. Write program on javascript using different operator.
+ b. Write program on javascript using different loops. 
+ c. Write program on javascript using control statement.
+ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Example</title>
+  </head>
+  <body>
+    <h1>JavaScript Example</h1>
+    <div id="output"></div>
+    <script>
+      // Example array of numbers
+      let numbers = [5, 10, 15, 20, 25];
+
+      // Function to perform operations
+      function performOperations(arr) {
+        let sum = 0;
+        let product = 1;
+        let evenNumbers = [];
+        let oddNumbers = [];
+
+        // Using for loop to iterate over the array
+        for (let i = 0; i < arr.length; i++) {
+          sum += arr[i]; // Using addition operator
+          product *= arr[i]; // Using multiplication operator
+
+          // Using modulus operator and if-else statement to separate even and odd numbers
+          if (arr[i] % 2 === 0) {
+            evenNumbers.push(arr[i]);
+          } else {
+            oddNumbers.push(arr[i]);
+          }
+        }
+        console.log(evenNumbers);
+        console.log(oddNumbers);
+
+        // Using while loop to perform a countdown
+        let countdown = 10;
+        let countdownOutput = "Countdown: ";
+        while (countdown > 0) {
+          countdownOutput += countdown + " ";
+          countdown--;
+        }
+
+        // Using forEach loop to create a string of all numbers
+        let allNumbers = "";
+        arr.forEach((num, index) => {
+          allNumbers += `Number ${index + 1}: ${num} `;
+        });
+
+        // Using switch statement to categorize sum
+        let sumCategory;
+        switch (true) {
+          case sum < 50:
+            sumCategory = "Sum is less than 50";
+            break;
+          case sum === 50:
+            sumCategory = "Sum is exactly 50";
+            break;
+          default:
+            sumCategory = "Sum is greater than 50";
+        }
+        console.log(sumCategory);
+
+        // Creating the output content
+        let outputContent = `
+                <p>Sum of all numbers: ${sum}</p>
+                <p>Product of all numbers: ${product}</p>
+                <p>Even numbers: ${evenNumbers.join(", ")}</p>
+                <p>Odd numbers: ${oddNumbers.join(", ")}</p>
+                <p>${countdownOutput}</p>
+                <p>${allNumbers}</p>
+                <p>${sumCategory}</p>
+            `;
+
+        // Displaying the output in the HTML
+        document.getElementById("output").innerHTML = outputContent;
+      }
+
+      // Calling the function with the numbers array
+      performOperations(numbers);
+    </script>
+  </body>
+</html>
