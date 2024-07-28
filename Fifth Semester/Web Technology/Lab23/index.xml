@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+  <book>
+    <name>Atullya Maharjan</name>
+    <author>Atullya </author>
+    <price>3.0</price>
+  </book>
+  <book>
+  <name>Pride and Prejudice</name>
+  <author>Jane Austen</author>
+  <price>4.0</price>
+  </book>
+<book>
+<name>Jane Eyre</name>
+<author>Charlotte Bronte</author>
+<price>4.5</price>
+  </book>
+</books>
