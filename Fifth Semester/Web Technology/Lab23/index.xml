@@ -7,12 +7,12 @@
   </book>
   <book>
   <name>Pride and Prejudice</name>
-  <author>Jane Austen</author>
-  <price>4.0</price>
+  <author> Austen</author>
+  <price>3.0</price>
   </book>
 <book>
-<name>Jane Eyre</name>
-<author>Charlotte Bronte</author>
-<price>4.5</price>
+<name>Jane </name>
+<author>Charlotte </author>
+<price>5</price>
   </book>
 </books>
