@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<books>
-  <book>
-    <name>Atullya Maharjan</name>
-    <author>Atullya </author>
-    <price>3.0</price>
-  </book>
-  <book>
-  <name>Pride and Prejudice</name>
-  <author> Austen</author>
-  <price>3.0</price>
-  </book>
-<book>
-<name>Jane </name>
-<author>Charlotte </author>
-<price>5</price>
-  </book>
-</books>
+<library>
+    <book>
+        <title>XML Fundamentals</title>
+        <author>John Doe</author>
+        <year>2023</year>
+        <price>29.99</price>
+    </book>
+    <book>
+        <title>Advanced XML</title>
+        <author>Jane Smith</author>
+        <year>2021</year>
+        <price>39.99</price>
+    </book>
+</library>
