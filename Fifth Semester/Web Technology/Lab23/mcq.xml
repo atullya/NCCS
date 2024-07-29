@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+    <question>
+        <text>What does XML stand for?</text>
+        <option correct="true">eXtensible Markup Language</option>
+        <option correct="false">eXtra Modern Link</option>
+        <option correct="false">Example Markup Language</option>
+        <option correct="false">X-Markup Language</option>
+    </question>
+</quiz>
