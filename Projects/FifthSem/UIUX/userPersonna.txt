@@ -1,0 +1,13 @@
+photo
+name
+age
+location
+job title
+education level 
+marital status
+family status
+pain points/frustrations
+wants/needs
+biography 
+personality traits
+preferred social media channels
