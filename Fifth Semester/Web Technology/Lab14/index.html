@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="alert_msg()">Alert</button><br /><br />
+    <button onclick="confirm_msg()">Confirm</button><br /><br />
+    <button onclick="prompt_msg()">Prompt</button><br /><br />
+    A: <input type="number" id="numA" /> B: <input type="number" id="numB" />
+    <input type="submit" onclick="calculate()" value="Find" /><br />
+    Sum:
+    <p id="sum" style="display: inline"></p>
+    <p id="name"></p>
+    <script>
+      function alert_msg() {
+        alert("Hello World");
+      }
+      function confirm_msg() {
+        confirm("Please Confirm");
+      }
+      function prompt_msg() {
+        prompt("Enter Text");
+      }
+      function calculate() {
+        const a = parseInt(document.getElementById("numA").value);
+        const b = parseInt(document.getElementById("numB").value);
+        const sum = a + b;
+        document.querySelector("#sum").innerHTML = sum;
+      }
+
+      let name = "Atullya Maharjan";
+      document.querySelector("#name").innerHTML = name;
+    </script>
+  </body>
+</html>
