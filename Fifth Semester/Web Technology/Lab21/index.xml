@@ -1,0 +1,17 @@
+<?xml version ="1.0" encoding ="ISO-8859-1"?>
+<!DOCTYPE note
+[
+<!ELEMENT note (to,from,heading,body,footer)>
+<!ELEMENT to (#PCDATA)>
+<!ELEMENT from (#PCDATA)>
+<!ELEMENT heading (#PCDATA)>
+<!ELEMENT body (#PCDATA)>
+<!ELEMENT footer (#PCDATA)>
+]>
+<note>
+    <to>Atullya Maharjan</to>
+    <from>Diya Maharjan</from>
+    <heading>REMAINDER!!</heading>
+    <body>It's your exam today.Have fun.</body>
+    <footer>Your's friend</footer>
+</note>
