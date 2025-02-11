@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_INPUT_LENGTH 200
+
+int isValidComment(const char *input) {
+    int len = strlen(input);
+    
+    if (len >= 2 && input[0] == '/' && input[1] == '/') {
+        return 1; // Single-line comment
+    }
+    
+    if (len >= 4 && input[0] == '/' && input[1] == '*' && input[len - 2] == '*' && input[len - 1] == '/') {
+        return 1; // Multi-line comment
+    }
+    
+    return 0; // Not a valid comment
+}
+
+int main() {
+    char input[MAX_INPUT_LENGTH];
+    printf("Enter a string to check if it's a valid comment: ");
+    fgets(input, MAX_INPUT_LENGTH, stdin);
+    input[strcspn(input, "\n")] = '\0';  // Remove newline character
+    
+    if (isValidComment(input)) {
+        printf("Valid comment section.\n");
+    } else {
+        printf("Not a valid comment section.\n");
+    }
+    
+    return 0;
+}
+
