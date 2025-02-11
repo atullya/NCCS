@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+#define MAX_TOKEN_LENGTH 100
+
+void analyzeLexemes(const char *input) {
+    int i = 0;
+    char token[MAX_TOKEN_LENGTH];
+    int tokenIndex = 0;
+    
+    while (input[i] != '\0') {
+        if (isspace(input[i])) {
+            i++;
+            continue;
+        }
+        
+        if (isalpha(input[i])) { // Identifier
+            tokenIndex = 0;
+            while (isalnum(input[i])) {
+                token[tokenIndex++] = input[i++];
+            }
+            token[tokenIndex] = '\0';
+            printf("Identifier: %s\n", token);
+        } 
+        else if (isdigit(input[i])) { // Number
+            tokenIndex = 0;
+            while (isdigit(input[i])) {
+                token[tokenIndex++] = input[i++];
+            }
+            token[tokenIndex] = '\0';
+            printf("Number: %s\n", token);
+        } 
+        else { // Operators and special characters
+            printf("Operator: %c\n", input[i]);
+            i++;
+        }
+    }
+}
+
+int main() {
+    char input[MAX_TOKEN_LENGTH];
+    printf("Enter the input string: ");
+    fgets(input, MAX_TOKEN_LENGTH, stdin);
+    input[strcspn(input, "\n")] = '\0';  // Remove newline character
+    
+    printf("Lexical Analysis:\n");
+    analyzeLexemes(input);
+    return 0;
+}
