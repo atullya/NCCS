@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Global Variables
+int z = 0, i = 0, j = 0, c = 0;
+char a[100], ac[20], stk[100], act[10];
+char grammar[10][10]; // Array to store grammar rules
+int rule_count;
+
+// Function to take grammar input from user
+void input_grammar() {
+    printf("\nEnter number of grammar rules: ");
+    scanf("%d", &rule_count);
+    printf("\nEnter Grammar Rules:\n");
+    printf("Format: LHS->RHS (e.g., S->AA)\n");
+    for (int k = 0; k < rule_count; k++) {
+        printf("Rule %d: ", k + 1);
+        scanf("%s", grammar[k]);
+    }
+}
+
+// Function to print the grammar
+void print_grammar() {
+    printf("\nGRAMMAR:\n");
+    for (int k = 0; k < rule_count; k++) {
+        printf("%s\n", grammar[k]);
+    }
+}
+
+// Function to check and reduce the stack
+void check() {
+    strcpy(ac, "REDUCE TO");
+
+    for (int r = 0; r < rule_count; r++) {
+        char lhs = grammar[r][0]; // Left-hand side of rule
+        char rhs[10];
+        strcpy(rhs, grammar[r] + 3); // Extract RHS from "A->XYZ"
+        int rhs_len = strlen(rhs);
+
+        // Check for a match in the stack
+        for (z = 0; z <= c - rhs_len; z++) {
+            if (strncmp(stk + z, rhs, rhs_len) == 0) { // Rule matches
+                printf("\n%s %s", ac, grammar[r]);
+                
+                // Reduce stack
+                stk[z] = lhs;
+                for (int k = z + 1; k < c; k++) {
+                    stk[k] = '\0';
+                }
+                c -= (rhs_len - 1);
+                
+                printf("\n$%s\t%s$\t", stk, a);
+                return; // Stop after a successful reduction
+            }
+        }
+    }
+}
+
+int main() {
+    input_grammar();
+    print_grammar();
+
+    printf("\nEnter input string: ");
+    scanf("%s", a);
+
+    c = strlen(a);
+    strcpy(act, "SHIFT");
+    printf("\nstack \t input \t action");
+    printf("\n$\t%s$\t", a);
+
+    for (i = 0; j < c; i++, j++) {
+        printf("%s", act);
+        stk[i] = a[j];
+        stk[i + 1] = '\0';
+        a[j] = ' ';
+        printf("\n$%s\t%s$\t", stk, a);
+        check();
+    }
+
+    check(); // Final check after shifting all characters
+
+    // Accept if only start symbol remains
+    if (stk[0] == grammar[0][0] && stk[1] == '\0') 
+        printf("Accept\n");
+    else 
+        printf("Reject\n");
+
+    return 0;
+}
