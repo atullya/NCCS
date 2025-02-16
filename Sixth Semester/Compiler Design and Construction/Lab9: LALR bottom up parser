@@ -1,0 +1,109 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX 100
+
+// Stack for parsing
+char stack[MAX];
+int top = -1;
+char input[MAX];
+
+// Push to stack
+void push(char c) {
+    if (top < MAX - 1) {
+        stack[++top] = c;
+    } else {
+        printf("Stack Overflow\n");
+    }
+}
+
+// Pop from stack
+void pop() {
+    if (top >= 0) {
+        top--;
+    } else {
+        printf("Stack Underflow\n");
+    }
+}
+
+// Display stack
+void displayStack() {
+    for (int i = 0; i <= top; i++) {
+        printf("%c", stack[i]);
+    }
+}
+
+// Function to check if reduction can be done
+void reduce() {
+    while (1) {
+        if (top >= 2 && stack[top - 2] == 'E' && (stack[top - 1] == '+' || stack[top - 1] == '-') && stack[top] == 'T') {
+            // Reduce E → E + T or E → E - T
+            printf("\nReducing: E → E %c T", stack[top - 1]);
+            stack[top - 2] = 'E';
+            top -= 2;
+        } else if (top >= 2 && stack[top - 2] == 'T' && (stack[top - 1] == '*' || stack[top - 1] == '/') && stack[top] == 'F') {
+            // Reduce T → T * F or T → T / F
+            printf("\nReducing: T → T %c F", stack[top - 1]);
+            stack[top - 2] = 'T';
+            top -= 2;
+        } else if (top >= 0 && stack[top] == 'F') {
+            // Reduce F → id
+            printf("\nReducing: F → id");
+            stack[top] = 'F';
+        } else if (top >= 0 && stack[top] == 'T') {
+            // Reduce T → F
+            printf("\nReducing: T → F");
+            stack[top] = 'T';
+        } else if (top >= 0 && stack[top] == 'E') {
+            // Reduce E → T
+            printf("\nReducing: E → T");
+            stack[top] = 'E';
+        } else {
+            break; // No more reductions possible
+        }
+    }
+}
+
+// Parsing function
+void parse(char *expr) {
+    int i = 0;
+    printf("\nParsing Expression: %s\n", expr);
+    printf("\nStack\t\tInput\t\tAction\n");
+
+    while (i < strlen(expr)) {
+        char current = expr[i];
+
+        // Shift operation
+        push(current);
+        printf("\n");
+        displayStack();
+        printf("\t\t%s\t\tShift", expr + i + 1);
+
+        // Reduce if possible
+        reduce();
+
+        i++;
+    }
+
+    // Final Reduction
+    reduce();
+
+    // Check if parsing was successful
+    if (top == 0 && stack[0] == 'E') {
+        printf("\n\nAccepted: Valid Expression!\n");
+    } else {
+        printf("\n\nRejected: Invalid Expression!\n");
+    }
+}
+
+// Main function
+int main() {
+    printf("Enter an arithmetic expression: ");
+    scanf("%s", input);
+    
+    parse(input);
+
+    return 0;
+}
