@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX 100
+
+// Structure to represent a three-address code instruction
+typedef struct {
+    char op[10];   // Operator
+    char arg1[10]; // First argument
+    char arg2[10]; // Second argument
+    char result[10]; // Result
+} TAC;
+
+// Function to generate three-address code
+void generateTAC(char *expression) {
+    TAC tac[MAX];
+    int tacIndex = 0;
+    char tempVar[10];
+    int tempCount = 1;
+
+    // Tokenize the expression
+    char *token = strtok(expression, " ");
+    char lastOperand[10] = "";
+    char lastOperator[10] = "";
+
+    // Process the expression
+    for (int i = 0; expression[i] != '\0'; i++) {
+        if (isalnum(expression[i])) { // Check if the character is an operand (variable or number)
+            // Build the operand string
+            char operand[10] = {0};
+            int j = 0;
+            while (isalnum(expression[i]) && j < 9) {
+                operand[j++] = expression[i++];
+            }
+            operand[j] = '\0'; // Null-terminate the operand
+
+            if (strlen(lastOperand) == 0) {
+                // First operand
+                strcpy(lastOperand, operand);
+            } else {
+                // We have a last operand and now we have a new operand
+                sprintf(tempVar, "t%d", tempCount++);
+                strcpy(tac[tacIndex].result, tempVar);
+                strcpy(tac[tacIndex].arg1, lastOperand);
+                strcpy(tac[tacIndex].arg2, operand);
+                strcpy(tac[tacIndex].op, lastOperator);
+                tacIndex++;
+                strcpy(lastOperand, tempVar); // Update lastOperand to the new temp variable
+            }
+            i--; // Adjust index since the for loop will increment it
+        } else if (strchr("+-*/", expression[i])) {
+            // If the character is an operator, store it for the next operation
+            lastOperator[0] = expression[i];
+            lastOperator[1] = '\0'; // Null-terminate the operator string
+        }
+    }
+
+    // Handle the last operation if there's a remaining lastOperand
+    if (strlen(lastOperand) > 0) {
+        strcpy(tac[tacIndex].result, lastOperand);
+        strcpy(tac[tacIndex].arg1, lastOperand);
+        strcpy(tac[tacIndex].arg2, "0"); // Assuming the last operation is with 0
+        strcpy(tac[tacIndex].op, ""); // No operation
+        tacIndex++;
+    }
+
+    // Print the generated three-address code
+    printf("Three Address Code:\n");
+    for (int i = 0; i < tacIndex; i++) {
+        if (strlen(tac[i].op) > 0) {
+            printf("%s = %s %s %s\n", tac[i].result, tac[i].arg1, tac[i].op, tac[i].arg2);
+        }
+    }
+}
+
+int main() {
+    char expression[MAX];
+
+    printf("Enter a simple arithmetic expression (e.g., a + b * c): ");
+    fgets(expression, sizeof(expression), stdin);
+    expression[strcspn(expression, "\n")] = 0; // Remove newline character
+
+    generateTAC(expression);
+
+    return 0;
+}
