@@ -1,0 +1,36 @@
+//rite a program to demonstrate multiple inheritance using interface
+
+using System;
+
+public interface IAnimal
+{
+    void Eat();
+}
+
+public interface IWorkable
+{
+    void Work();
+}
+
+public class Human : IAnimal, IWorkable  // Implementing both interfaces
+{
+    public void Eat()
+    {
+        Console.WriteLine("Human is eating");
+    }
+
+    public void Work()
+    {
+        Console.WriteLine("Human is working");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Human human = new Human();
+        human.Eat();  // Output: Human is eating
+        human.Work(); // Output: Human is working
+    }
+}
