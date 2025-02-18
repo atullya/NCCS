@@ -1,0 +1,25 @@
+
+//Write a program to demonstrate interface
+using System;
+
+public interface IAnimal  // Interface
+{
+    void Speak();  // Method without implementation
+}
+
+public class Dog : IAnimal  // Implementing the interface
+{
+    public void Speak()
+    {
+        Console.WriteLine("Dog is barking");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        IAnimal myDog = new Dog();
+        myDog.Speak();  // Output: Dog is barking
+    }
+}
