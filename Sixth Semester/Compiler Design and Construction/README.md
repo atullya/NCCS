@@ -1,6 +1,8 @@
-#Lab3
+## Lab3
 ![image](https://github.com/user-attachments/assets/bca4b404-6240-4e5e-80cf-7863c1e9dec6)
 
+## Lab 7
+![image](https://github.com/user-attachments/assets/e402816f-0dd7-4a12-8515-6cc6934c1df3)
 
 
 ## Lab 9
