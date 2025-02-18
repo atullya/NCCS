@@ -1,0 +1,29 @@
+
+//8.	Write a program to demonstrate use of base keyword
+using System;
+
+public class Vehicle  // Base class
+{
+    public void Start()
+    {
+        Console.WriteLine("Vehicle is starting");
+    }
+}
+
+public class Car : Vehicle  // Derived class
+{
+    public void Start()
+    {
+        base.Start();  // Calling the base class method
+        Console.WriteLine("Car is ready to go");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Car myCar = new Car();
+        myCar.Start();  // Calls the overridden method in Car and also the base method
+    }
+}
