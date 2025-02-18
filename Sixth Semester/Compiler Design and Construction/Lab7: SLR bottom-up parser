@@ -1,0 +1,157 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_STACK 100
+#define MAX_INPUT 100
+
+typedef struct {
+    int state;
+    char symbol;
+} StackElement;
+
+typedef struct {
+    char nonTerminal;
+    char *production;
+    int length;
+} Production;
+
+StackElement stack[MAX_STACK];
+int top = -1;
+Production productions[] = {
+    {'S', "AA", 2},   // S -> AA  (production 0)
+    {'A', "aA", 2},   // A -> aA  (production 1)
+    {'A', "b", 1}     // A -> b   (production 2)
+};
+
+// Corrected ACTION table
+const int ACTION[7][3] = {
+    //  a   b   $
+    {2,  3,  0},  // State 0
+    {0,  0,  1},  // State 1 (Accept)
+    {2,  3,  0},  // State 2
+    {0,  0,  -3}, // State 3 (Reduce A->b)
+    {0,  0,  -1}, // State 4 (Reduce S->AA) - FIXED THIS STATE
+    {2,  3,  0},  // State 5
+    {0,  0,  -2}  // State 6 (Reduce A->aA)
+};
+
+// Corrected GOTO table
+const int GOTO[7][2] = {
+    // A  S
+    {4, 1}, // State 0
+    {0, 0}, // State 1
+    {6, 0}, // State 2
+    {0, 0}, // State 3
+    {0, 0}, // State 4
+    {0, 0}, // State 5
+    {0, 0}  // State 6
+};
+
+void printDebug(char* action, int state, char symbol) {
+    printf("DEBUG: %s - State: %d, Symbol: %c\n", action, state, symbol);
+}
+
+void push(int state, char symbol) {
+    if (top >= MAX_STACK - 1) {
+        printf("Stack overflow\n");
+        exit(1);
+    }
+    top++;
+    stack[top].state = state;
+    stack[top].symbol = symbol;
+    printDebug("Push", state, symbol);
+}
+
+void pop(int count) {
+    printDebug("Pop", stack[top].state, stack[top].symbol);
+    top -= count;
+    if (top < -1) {
+        printf("Stack underflow\n");
+        exit(1);
+    }
+}
+
+int getColumnIndex(char input) {
+    switch(input) {
+        case 'a': return 0;
+        case 'b': return 1;
+        case '$': return 2;
+        case 'A': return 0;
+        case 'S': return 1;
+        default: return -1;
+    }
+}
+
+void printStack() {
+    printf("Stack: ");
+    for(int i = 0; i <= top; i++) {
+        printf("(%d,%c) ", stack[i].state, stack[i].symbol);
+    }
+    printf("\n");
+}
+
+int parse(char *input) {
+    int currentPos = 0;
+    char currentInput;
+    
+    push(0, '$');
+    
+    while (1) {
+        currentInput = input[currentPos];
+        int currentState = stack[top].state;
+        int col = getColumnIndex(currentInput);
+        
+        printf("\nCurrent input: %c\n", currentInput);
+        printStack();
+        
+        if (col == -1) {
+            printf("Invalid input symbol: %c\n", currentInput);
+            return 0;
+        }
+        
+        int action = ACTION[currentState][col];
+        printf("Current state: %d, Action: %d\n", currentState, action);
+        
+        if (action == 1 && currentInput == '$') {
+            printf("Accept! Input string is valid.\n");
+            return 1;
+        }
+        else if (action > 0) {
+            printf("Shift to state %d\n", action);
+            push(action, currentInput);
+            currentPos++;
+        }
+        else if (action < 0) {
+            int productionIndex = -action - 1;
+            Production prod = productions[productionIndex];
+            
+            printf("Reducing by production %d: %c -> %s\n", 
+                   productionIndex, prod.nonTerminal, prod.production);
+            
+            pop(prod.length);
+            int newState = GOTO[stack[top].state][getColumnIndex(prod.nonTerminal)];
+            printf("After reduction, going to state %d\n", newState);
+            push(newState, prod.nonTerminal);
+        }
+        else {
+            printf("Syntax error at position %d\n", currentPos);
+            printf("Invalid action in state %d for input %c\n", currentState, currentInput);
+            return 0;
+        }
+    }
+}
+
+int main() {
+    char input[MAX_INPUT];
+    printf("Enter input string (end with $): ");
+    scanf("%s", input);
+    
+    if (parse(input)) {
+        printf("Parsing completed successfully\n");
+    } else {
+        printf("Parsing failed\n");
+    }
+    
+    return 0;
+}
