@@ -1,0 +1,26 @@
+
+//2.	Write a program to demonstrate method overloading?
+using System;
+
+class Demo
+{
+   public  void sum(int x, int y)
+    {
+        Console.WriteLine("The sum is " + (x + y));
+    }
+
+   public  void sum(int x, int y, int z)
+    {
+        Console.WriteLine("The sum is " + (x + y + z));
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Demo d1 = new Demo();
+        d1.sum(2, 2);       
+        d1.sum(3,3,3);     
+    }
+}
