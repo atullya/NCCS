@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+// Structure to represent a three-address statement
+typedef struct {
+    char result[10];
+    char operand1[10];
+    char operand2[10];
+    char op[2]; // To accommodate both single and double character operators
+} TAC;
+
+// Function to generate target code from three-address code
+void generateTargetCode(TAC tac[], int n) {
+    printf("\nGenerated Target Code:\n");
+    for (int i = 0; i < n; i++) {
+        printf("LOAD R1, %s\n", tac[i].operand1); // Load operand1 into register R1
+        if (strcmp(tac[i].op, "=") != 0) { // Check if it is not a simple assignment
+            if (strcmp(tac[i].op, "+") == 0) {
+                printf("ADD R1, %s\n", tac[i].operand2); // Perform addition with operand2
+            } else if (strcmp(tac[i].op, "*") == 0) {
+                printf("MUL R1, %s\n", tac[i].operand2); // Perform multiplication with operand2
+            } else if (strcmp(tac[i].op, "-") == 0) {
+                printf("SUB R1, %s\n", tac[i].operand2); // Perform subtraction with operand2
+            } else if (strcmp(tac[i].op, "/") == 0) {
+                printf("DIV R1, %s\n", tac[i].operand2); // Perform division with operand2
+            }
+        }
+        printf("STORE %s, R1\n", tac[i].result); // Store result back to memory
+    }
+}
+
+int main() {
+    int n;
+    TAC tac[MAX];
+    char input[100];
+
+    printf("Enter the number of three-address statements: ");
+    scanf("%d", &n);
+    getchar(); // Consume the newline character
+
+    printf("Enter the three-address statements in the format (result = operand1 op operand2) or (result = operand1):\n");
+    for (int i = 0; i < n; i++) {
+        fgets(input, sizeof(input), stdin); // Read the entire line
+        sscanf(input, "%s = %s %s %s", tac[i].result, tac[i].operand1, tac[i].op, tac[i].operand2);
+
+       // Check if it's an assignment statement
+        if (strcmp(tac[i].op, "=") == 0 || (strcmp(tac[i].op, "") == 0 && strcmp(tac[i].operand2, "=") == 0)) {
+            strcpy(tac[i].op, "=");
+            strcpy(tac[i].operand2, ""); // Clear operand2 for assignment
+        }
+
+        // Remove newline if present
+        size_t len = strlen(tac[i].result);
+        if (len > 0 && tac[i].result[len-1] == '\n') {
+            tac[i].result[len-1] = '\0';
+        }
+    }
+
+    generateTargetCode(tac, n);
+
+    return 0;
+}
+
