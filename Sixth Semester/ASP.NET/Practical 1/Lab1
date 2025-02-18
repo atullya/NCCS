@@ -1,0 +1,35 @@
+//Write a program to demonstrate class, constructor, properties and method
+
+using System;
+
+class Demo
+{
+    private int name; // Field should be declared at the class level.
+
+    public Demo()
+    {
+        Console.WriteLine("This is default constructor");
+    }
+
+    public int Name
+    {
+        get { return name; }
+        set { name = value; }
+    }
+
+    public void display()
+    {
+        Console.WriteLine($"My name is {name}"); 
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Demo d1 = new Demo();
+        d1.Name = 42; 
+        d1.display();
+    }
+}
+
