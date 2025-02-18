@@ -1,0 +1,28 @@
+//Write a program to demonstrate method overriding (dynamic polymorphism)?
+
+using System;
+
+public class Animal
+{
+    public virtual void Speak()
+    {
+        Console.WriteLine("Animal is making a sound");
+    }
+}
+
+public class Dog : Animal
+{
+    public override void Speak()
+    {
+        Console.WriteLine("Dog is barking");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Animal myDog = new Dog();
+        myDog.Speak();  // Output: Dog is barking
+    }
+}
