@@ -1,0 +1,36 @@
+//5.	Create a class Shape that contains instance variable length, breadth and height. Create a default constructor that sets the value of instance variable to zero, constructor with two parameter that will sets the value of length and breadth only and constructor with three parameter that will sets the value of length, breadth and height. After this create calcAreaRectangle() that calculates the area of rectangle, calcVolumeBox() that calculates volume of box and display the result. Now create first object of Shape wihich will have name rectangle and calls constructor with two parameter and calAreaRectangle() method, create second object of Shape that will have name Box which will call constructor with three parameter and calcVolumeBox() method.
+
+using System;
+class Shape{
+    private int lenght;
+    private int breadth;
+    private int height;
+    public  Shape(){
+        lenght=0;
+        breadth=0;
+        height=0;
+    }
+    public Shape(int lenght, int breadth){
+        this.lenght=lenght;
+        this.breadth=breadth;
+    }
+     public Shape(int lenght, int breadth,int height){
+        this.lenght=lenght;
+        this.breadth=breadth;
+        this.height=height;
+    }
+    public void calcAreaRectangle(){
+        Console.WriteLine("The area of rectangle is "+(lenght*breadth));
+    }
+     public void calcVolumeBox(){
+        Console.WriteLine("The volume of Box is "+(lenght*breadth*height));
+    }
+}
+class Program{
+    static void Main(string[] args){
+        Shape s1=new Shape(12,12);
+        Shape s2=new Shape(12,12,12);
+        s1.calcAreaRectangle();
+        s2.calcVolumeBox();
+    }
+}
