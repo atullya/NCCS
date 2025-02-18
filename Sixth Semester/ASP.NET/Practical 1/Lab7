@@ -1,0 +1,69 @@
+Write a program to demonstrate single level, multilevel inheritance?
+//Single-Level Inheritance:
+using System;
+
+public class Animal  // Base class
+{
+    public void Eat()
+    {
+        Console.WriteLine("Animal is eating");
+    }
+}
+
+public class Dog : Animal  // Derived class
+{
+    public void Bark()
+    {
+        Console.WriteLine("Dog is barking");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Dog dog = new Dog();
+        dog.Eat();  // Inherited method
+        dog.Bark(); // Dog's own method
+    }
+}
+
+//Multilevel Inheritance:
+
+using System;
+
+public class Animal  // Base class
+{
+    public void Eat()
+    {
+        Console.WriteLine("Animal is eating");
+    }
+}
+
+public class Dog : Animal  // Derived class from Animal
+{
+    public void Bark()
+    {
+        Console.WriteLine("Dog is barking");
+    }
+}
+
+public class Puppy : Dog  // Derived class from Dog
+{
+    public void Play()
+    {
+        Console.WriteLine("Puppy is playing");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Puppy puppy = new Puppy();
+        puppy.Eat();   // Inherited from Animal
+        puppy.Bark();  // Inherited from Dog
+        puppy.Play();  // Puppy’s own method
+    }
+}
+
