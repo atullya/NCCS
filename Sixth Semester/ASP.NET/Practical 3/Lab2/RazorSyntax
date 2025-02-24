@@ -1,0 +1,34 @@
+@{
+    var name = "Atullya Maharjan";
+    int age = 22;
+    var address = "Bafal,Nagarjun-4,Kathmandu";
+    var isLoggedIn = true;
+    var colors = new List<string> { "Red", "Green", "Blue" };
+}
+<h2>Basic Razor Syntax</h2>
+
+<p>Welcome, @name!</p>
+<p>Address, @address</p>
+<p>Current Year: @DateTime.Now.Year</p>
+
+@if (age >= 18)
+{
+    <p>You are eligible to vote.</p>
+}
+else
+{
+    <p>You are not eligible to vote.</p>
+}
+
+<h3>Favorite Colors:</h3>
+<ul>
+    @foreach (var color in colors)
+    {
+        <li>@color</li>
+    }
+</ul>
+<p>Status: @(isLoggedIn ? "Logged In" : "Guest")</p>
+@{
+    string greeting = DateTime.Now.Hour < 12 ? "Good Morning" : "Good Evening";
+}
+<p>@greeting, @name!</p>
