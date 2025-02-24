@@ -1,0 +1,43 @@
+Models
+Student.cs
+
+namespace MVCPractise.Models
+{
+    public class Student  {
+        private int id;
+        private string name;
+        private string faculty;
+        public int Id {  get { return id; } set { id = value; } }
+        public string Name { get { return name; }   set { name = value; } }
+        public string Faculty { get { return faculty; } set {   faculty = value; } }    
+    }
+}
+Controllers
+StudentController.cs
+using Microsoft.AspNetCore.Mvc;
+using MVCPractise.Models; 
+namespace MVCPractise.Controllers{
+    public class StudentController : Controller
+    {
+        public IActionResult Index()  {
+            return View();
+        }
+        public IActionResult Details(){
+            Student s1 = new Student()
+            {
+                Id = 1,
+                Name = "Atullya",
+                Faculty = "Science"
+            };
+            return View(s1);
+        }
+    }
+}
+
+Views
+Details.cshtml
+
+@using MVCPractise.Models
+<h2>Id:@Model.Id</h2>
+<h2>Name:@Model.Name</h2>
+<h2>Faculty:@Model.Faculty</h2>
