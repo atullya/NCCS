@@ -1,0 +1,104 @@
+// src/FormComponent.js
+import React, { useState } from 'react';
+import $ from 'jquery';
+
+const FormComponent = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    rememberMe: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Clear previous validation messages
+    $('.error').remove();
+
+    // Validate form fields
+    let isValid = true;
+
+    if (!formData.name) {
+      isValid = false;
+      $('#name').after('<span class="error">Name is required</span>');
+    }
+
+    if (!formData.email) {
+      isValid = false;
+      $('#email').after('<span class="error">Email is required</span>');
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      isValid = false;
+      $('#email').after('<span class="error">Email is invalid</span>');
+    }
+
+    if (!formData.password) {
+      isValid = false;
+      $('#password').after('<span class="error">Password is required</span>');
+    }
+    if (formData.password.length < 6) {
+      alert('Password must be of at least 6 character');
+    }
+    if (isValid) {
+      alert('Form submitted successfully!');
+      // Here you can handle form submission, e.g., send data to the server
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            name="rememberMe"
+            checked={formData.rememberMe}
+            onChange={handleChange}
+          />
+          Remember Me
+        </label>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+
+export default FormComponent;
