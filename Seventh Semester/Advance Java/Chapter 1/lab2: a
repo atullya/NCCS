@@ -1,0 +1,80 @@
+Write a Java program to create a class called Shape with a method called getArea().
+Create a subclass called Rectangle, Circle and Triangle that overrides the getArea()
+method to calculate the area of a rectangle, circle and triangle.
+
+// Base class Shape
+class Shape {
+    // Method to be overridden
+    public double getArea() {
+        return 0.0;
+    }
+}
+
+// Subclass for Rectangle
+class Rectangle extends Shape {
+    double length;
+    double width;
+
+    // Constructor
+    Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    // Override getArea() for rectangle
+    @Override
+    public double getArea() {
+        return length * width;
+    }
+}
+
+// Subclass for Circle
+class Circle extends Shape {
+    double radius;
+
+    // Constructor
+    Circle(double radius) {
+        this.radius = radius;
+    }
+
+    // Override getArea() for circle
+    @Override
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+// Subclass for Triangle
+class Triangle extends Shape {
+    double base;
+    double height;
+
+    // Constructor
+    Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    // Override getArea() for triangle
+    @Override
+    public double getArea() {
+        return 0.5 * base * height;
+    }
+}
+
+// Main class to test all shapes
+public class ShapeTest {
+    public static void main(String[] args) {
+        // Create rectangle with length 5 and width 3
+        Shape rect = new Rectangle(5, 3);
+        System.out.println("Rectangle Area: " + rect.getArea());
+
+        // Create circle with radius 4
+        Shape circle = new Circle(4);
+        System.out.println("Circle Area: " + circle.getArea());
+
+        // Create triangle with base 6 and height 2
+        Shape triangle = new Triangle(6, 2);
+        System.out.println("Triangle Area: " + triangle.getArea());
+    }
+}
