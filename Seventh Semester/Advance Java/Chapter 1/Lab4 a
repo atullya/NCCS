@@ -1,0 +1,19 @@
+Write a Java program to check if a file specified by pathname exists or not.
+
+import java.io.File;
+
+public class FileExistCheck {
+    public static void main(String[] args) {
+        // Change this path to test with other files
+        String path = "example.txt"; // You can give full path like "C:\\Users\\YourName\\example.txt"
+        
+        File file = new File(path);
+
+        // Check if file exists
+        if (file.exists()) {
+            System.out.println("File exists: " + file.getAbsolutePath());
+        } else {
+            System.out.println("File does not exist.");
+        }
+    }
+}
