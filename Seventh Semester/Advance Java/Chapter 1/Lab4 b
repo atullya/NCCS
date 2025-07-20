@@ -1,0 +1,39 @@
+Write a Java program  to create a file(Your name) in a desktop also write an input 
+on the file, and read the file content  line by line.
+
+
+import java.io.*;
+
+public class FileExample {
+    public static void main(String[] args) {
+        try {
+            // Get desktop path
+            String desktopPath = System.getProperty("user.home") + "/Desktop";
+            File file = new File(desktopPath + "/Atullya.txt");
+           if (file.createNewFile()) {
+                System.out.println("File created: " + file.getAbsolutePath());
+            } else {
+                System.out.println("File already exists.");
+            }
+            // Create and write to the file using FileWriter
+            FileWriter writer = new FileWriter(file);
+            writer.write("Hello, my name is Atullya.\n");
+            writer.write("This file is written and read using FileWriter and FileReader.");
+            writer.close();
+            System.out.println("Data written to: " + file.getAbsolutePath());
+
+            // Read from the file using FileReader
+            FileReader reader = new FileReader(file);
+            int character;
+            System.out.println("\nReading file content:");
+            while ((character = reader.read()) != -1) {
+                System.out.print((char) character); // Print each character
+            }
+            reader.close();
+
+        } catch (IOException e) {
+            System.out.println("An error occurred:");
+            e.printStackTrace();
+        }
+    }
+}
