@@ -1,0 +1,57 @@
+ Suppose you are simulating a banking system where multiple threads are to withdraw money from the same bank account, Write a program using synchronized
+method or blocks to prevent data inconsistency.
+ Perform the following operations:
+ • Create a BankAccount class with an initial balance.
+ • Create multiple threads that try to withdraw money from the same
+ account.
+ • UseSynchronization to ensure that the balance never goes negative.
+ • Display appropriate messages if the balance is insufficient for
+ withdraw.
+
+
+class BankAccount {
+    int balance = 100; // Starting with $100
+
+    // Synchronized method to safely withdraw money
+    public synchronized void withdraw(int amount, String name) {
+        System.out.println(name + " is trying to withdraw $" + amount);
+
+        if (balance >= amount) {
+            System.out.println(name + " is withdrawing...");
+            balance = balance - amount;
+            System.out.println(name + " withdrew successfully. Remaining balance: $" + balance);
+        } else {
+            System.out.println(name + " can't withdraw. Not enough balance!");
+        }
+    }
+}
+
+class WithdrawThread extends Thread {
+    BankAccount account;
+    int amount;
+    String name;
+
+    WithdrawThread(BankAccount account, int amount, String name) {
+        this.account = account;
+        this.amount = amount;
+        this.name = name;
+    }
+
+    public void run() {
+        account.withdraw(amount, name);
+    }
+}
+
+public class SimpleBank {
+    public static void main(String[] args) {
+        BankAccount myAccount = new BankAccount();
+
+        // Creating multiple threads trying to withdraw
+        WithdrawThread t1 = new WithdrawThread(myAccount, 70, "Atullya");
+        WithdrawThread t2 = new WithdrawThread(myAccount, 50, "Avaya");
+
+        // Start both threads
+        t1.start();
+        t2.start();
+    }
+}
